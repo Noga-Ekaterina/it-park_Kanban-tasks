@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 export function SidebarFooter() {
   const [isDarkTheme, setIsDarkTheme] = useState<boolean>(
-    () => localStorage.getItem("isDarkTheme") === "true" || false
+    () => localStorage.getItem("isDarkTheme") === "true" || false,
   );
 
   useEffect(() => {
