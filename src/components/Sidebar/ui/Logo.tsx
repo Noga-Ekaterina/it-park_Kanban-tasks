@@ -1,7 +1,9 @@
+import logoIcon from "@/assets/logo-mobile.svg";
+
 export function Logo() {
   return (
     <div className="logo">
-      <img src="assets/logo-mobile.svg" alt="Logo" />
+      <img src={logoIcon} alt="Logo" />
       <h1>Kanban</h1>
     </div>
   );
