@@ -1,5 +1,3 @@
 export function EditTask() {
-  return (
-      <div>EditTask</div>
-  );
+  return <div>EditTask</div>;
 }

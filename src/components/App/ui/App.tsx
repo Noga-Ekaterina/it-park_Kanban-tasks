@@ -8,20 +8,20 @@ import { Sidebar } from "src/components/Sidebar";
 import { TaskDetailsModal } from "src/components/TaskDetailsModal";
 
 export function App() {
-    return (
-        <>
-            <div className="app-container">
-                <Sidebar />
-                <MainContent />
-            </div>
-            <ModalOverlay />
-            <CreateBoardModal />
-            {/* <!-- Card  --> */}
-            <TaskDetailsModal />
-            {/* <!-- Card end --> */}
-            <EditTaskModal />
-            <BoardOptionsPopup />
-            <EditBoardModal />
-        </>
-    );
+  return (
+    <>
+      <div className="app-container">
+        <Sidebar />
+        <MainContent />
+      </div>
+      <ModalOverlay />
+      <CreateBoardModal />
+      {/* <!-- Card  --> */}
+      <TaskDetailsModal />
+      {/* <!-- Card end --> */}
+      <EditTaskModal />
+      <BoardOptionsPopup />
+      <EditBoardModal />
+    </>
+  );
 }

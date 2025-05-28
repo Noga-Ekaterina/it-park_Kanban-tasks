@@ -1,1 +1,1 @@
-export { EditTask } from './ui/EditTask'
+export { EditTask } from "./ui/EditTask";

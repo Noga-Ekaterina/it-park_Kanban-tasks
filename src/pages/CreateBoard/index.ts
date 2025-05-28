@@ -1,1 +1,1 @@
-export { CreateBoard } from './ui/CreateBoard'
+export { CreateBoard } from "./ui/CreateBoard";

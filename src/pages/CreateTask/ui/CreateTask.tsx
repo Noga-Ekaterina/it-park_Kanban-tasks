@@ -1,5 +1,3 @@
 export function CreateTask() {
-  return (
-      <div>CreateTask</div>
-  );
+  return <div>CreateTask</div>;
 }

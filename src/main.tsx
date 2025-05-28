@@ -11,22 +11,22 @@ import { CreateBoard } from "./pages/CreateBoard";
 const root = document.getElementById("root");
 
 ReactDOM.createRoot(root as HTMLElement).render(
-    <BrowserRouter>
-        <Routes>
-            <Route path="/"  element={<Home />}>
-                <Route path="boards">
-                    <Route path=":boardId" element={<Board />}>
-                        <Route path="edit" element={<EditBoard />}/>
-                        <Route path="tasks">
-                            <Route path='create' element={<CreateTask />} />
-                            <Route path=":taskId" element={<Task />} />
-                            <Route path=":taskId/edit" element={<EditTask />} />
-                        </Route>
-                        <Route path="create" element={<CreateBoard />}/>
-                    </Route>
-                </Route>
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Home />}>
+        <Route path="boards">
+          <Route path=":boardId" element={<Board />}>
+            <Route path="edit" element={<EditBoard />} />
+            <Route path="tasks">
+              <Route path="create" element={<CreateTask />} />
+              <Route path=":taskId" element={<Task />} />
+              <Route path=":taskId/edit" element={<EditTask />} />
             </Route>
-            <Route path="*" element={<Home />}/>
-        </Routes>
-    </BrowserRouter>
-)
+            <Route path="create" element={<CreateBoard />} />
+          </Route>
+        </Route>
+      </Route>
+      <Route path="*" element={<Home />} />
+    </Routes>
+  </BrowserRouter>,
+);

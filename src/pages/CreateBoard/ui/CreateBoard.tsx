@@ -1,5 +1,3 @@
 export function CreateBoard() {
-  return (
-      <div>CreateBoard</div>
-  );
+  return <div>CreateBoard</div>;
 }
