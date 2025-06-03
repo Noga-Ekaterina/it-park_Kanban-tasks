@@ -14,6 +14,15 @@ export const TaskSchema = z.object({
   status: z.number(),
 });
 
-export const TaskResSchema = TaskSchema.extend({
-  id: z.coerce.number(),
+export const TasksResSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  tasks: z.array(
+    TaskSchema.extend({
+      id: z.coerce.number(),
+      board_id: z.number(),
+      board_user_id: z.string(),
+    }),
+  ),
+  user_id: z.string(),
 });
