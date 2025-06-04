@@ -10,18 +10,18 @@ import { TaskDetailsModal } from "src/components/TaskDetailsModal";
 export function App() {
     return (
         <>
-            <div className="app-container">
-                <Sidebar />
-                <MainContent />
-            </div>
+            {/* <div className="app-container"> */}
+                {/* <Sidebar />
+                <MainContent /> */}
+            {/* </div> */}
             <ModalOverlay />
-            <CreateBoardModal />
+            {/* <CreateBoardModal /> */}
             {/* <!-- Card  --> */}
-            <TaskDetailsModal />
+            {/* <TaskDetailsModal /> */}
             {/* <!-- Card end --> */}
-            <EditTaskModal />
-            <BoardOptionsPopup />
-            <EditBoardModal />
+            {/* <EditTaskModal /> */}
+            {/* <BoardOptionsPopup /> */}
+            {/* <EditBoardModal /> */}
         </>
     );
 }

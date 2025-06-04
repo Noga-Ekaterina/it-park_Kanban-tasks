@@ -13,9 +13,9 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://6830d2ac6205ab0d6c3a884e.mockapi.io",
+        target: "http://45.9.75.36:5000/",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
+        // rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
   },
