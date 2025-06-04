@@ -66,12 +66,12 @@ export function ModalOverlay() {
                         </select>
                     </div>
 
-                    {/* <!-- Submit Button --> */}
-                    <button type="submit" className="btn-primary">
-                        Create Task
-                    </button>
-                </form>
-            </div>
-        </div>
-    );
+          {/* <!-- Submit Button --> */}
+          <button type="submit" className="btn-primary">
+            Create Task
+          </button>
+        </form>
+      </div>
+    </div>
+  );
 }
