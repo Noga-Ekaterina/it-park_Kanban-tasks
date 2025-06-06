@@ -2,10 +2,11 @@ import iconDark from "@/assets/icon-dark-theme.svg";
 import iconlight from "@/assets/icon-light-theme.svg";
 import iconSidebar from "@/assets/icon-hide-sidebar.svg";
 import { useEffect, useState } from "react";
+import type { SidebarFooterProps } from "../IOpenClouseSidebar";
 
-export function SidebarFooter() {
+export function SidebarFooter({ setIsHideSidebar }: SidebarFooterProps) {
   const [isDarkTheme, setIsDarkTheme] = useState<boolean>(
-    () => localStorage.getItem("isDarkTheme") === "true" || false,
+    () => localStorage.getItem("isDarkTheme") === "true" || false
   );
 
   useEffect(() => {
@@ -30,7 +31,10 @@ export function SidebarFooter() {
         </label>
         <img src={iconDark} alt="Иконка луны" />
       </div>
-      <div className="hide-sidebar">
+      <div
+        className="hide-sidebar"
+        onClick={() => setIsHideSidebar((prev) => !prev)}
+      >
         <img src={iconSidebar} alt="" />
         <span>Hide Sidebar</span>
       </div>
