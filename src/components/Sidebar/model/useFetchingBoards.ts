@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { getData } from '../../../api'
 import { setBoards } from '../../../store/slices/boardsSlice'
-import { BoardResSchema } from '../../../types/zodShemas'
-import type { BoardResType } from 'src/types/types'
-
 
 export const useFetchingBoards = () => {
 	const dispatch = useDispatch()
