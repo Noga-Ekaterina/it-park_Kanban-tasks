@@ -22,7 +22,7 @@ export const TasksResSchema = z.object({
       id: z.coerce.number(),
       board_id: z.number(),
       board_user_id: z.string(),
-    }),
+    })
   ),
   user_id: z.string(),
 });

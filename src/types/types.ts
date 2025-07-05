@@ -11,3 +11,7 @@ export type BoardResType = z.infer<typeof BoardResSchema>;
 export type TaskType = z.infer<typeof TaskSchema>;
 export type TasksResType = z.infer<typeof TasksResSchema>;
 export type TasksType = TasksResType["tasks"];
+export type OpenTaskProps = {
+  isTaskOpen: boolean;
+  setIsTaskOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};

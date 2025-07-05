@@ -1,6 +1,13 @@
+import { useState } from "react";
 import { Header } from "./Header";
+// import { OpenTaskProps } from "../../../types/types";
 
-export function MainContent() {
+type OpenTaskProps = {
+  isTaskOpen: boolean;
+  setIsTaskOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export function MainContent(props: OpenTaskProps) {
   return (
     <div className="main-content">
       <Header />
@@ -14,7 +21,12 @@ export function MainContent() {
             <h3>TODO (4)</h3>
           </div>
           <div className="tasks">
-            <div className="task">
+            <div
+              className="task"
+              onClick={() => {
+                props.setIsTaskOpen(!props.isTaskOpen);
+              }}
+            >
               <h4>Build UI for onboarding flow</h4>
             </div>
             <div className="task">
