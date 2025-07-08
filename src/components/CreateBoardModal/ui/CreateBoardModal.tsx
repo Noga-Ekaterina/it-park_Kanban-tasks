@@ -2,15 +2,13 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { pushNewBoard } from 'src/store/slices/boardsSlice'
-import type { BoardType } from 'src/types/types'
-import { z } from 'zod'
-import { BoardSchema } from '../../../types/zodShemas'
+import { postData } from '../../../api'
+import type { BoardFormType, BoardResType } from '../../../types/types'
+import { BoardResSchema, BoardSchema } from '../../../types/zodShemas'
 
 interface CreateBoardModalProps {
 	onSetIsOpenModal: (value: boolean) => void
 }
-
-type BoardFormType = z.infer<typeof BoardSchema>
 
 export function CreateBoardModal({ onSetIsOpenModal }: CreateBoardModalProps) {
 	const dispatch = useDispatch()
@@ -24,28 +22,33 @@ export function CreateBoardModal({ onSetIsOpenModal }: CreateBoardModalProps) {
 		mode: 'onChange',
 	})
 
-	const submitHandler = (data: BoardFormType) => {
-		const newBoard: BoardType = {
-			name: data.name,
+	const submitHandler = async (data: BoardFormType) => {
+		try {
+			const createdBoard = await postData<BoardFormType, BoardResType>(
+				'boards/create',
+				{ name: data.name },
+				BoardResSchema
+			)
+
+			if (createdBoard) {
+				dispatch(pushNewBoard(createdBoard))
+				onSetIsOpenModal(false)
+			}
+		} catch {
+			alert('Ошибка при создании доски')
 		}
-		dispatch(pushNewBoard(newBoard))
-		onSetIsOpenModal(false)
 	}
-  
 
 	return (
 		<div className='modal-overlay board-modal'>
 			<div className='modal create-board-modal'>
 				<div className='modal-header'>
 					<h2>Add New Board</h2>
-					<button className='close-modal'>
-						<img
-							src='assets/icon-cross.svg'
-							alt='Close'
-							onClick={() => {
-                onSetIsOpenModal(false)
-              }}
-						/>
+					<button
+						className='close-modal'
+						onClick={() => onSetIsOpenModal(false)}
+					>
+						<img src='assets/icon-cross.svg' alt='Close' />
 					</button>
 				</div>
 

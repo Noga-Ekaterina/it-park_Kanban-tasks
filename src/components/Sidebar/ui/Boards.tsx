@@ -6,7 +6,7 @@ import { useFetchingBoards } from '../model/useFetchingBoards'
 import { Loader } from './Loader/ui/Loader'
 
 export function Boards() {
-  //модалка открытие и сохранение при обновлении
+	//модалка открытие и сохранение при обновлении
 	const [isOpenModal, setIsOpenModal] = useState(() => {
 		try {
 			const saved = localStorage.getItem('isOpenModal')
@@ -22,20 +22,20 @@ export function Boards() {
 			// ignore
 		}
 	}, [isOpenModal])
-  
-  //активная li
+
+	//активная li
 	const [activeIndex, setActiveIndex] = useState<number | null>(null)
-  //хук из model получение данных ошибки и загрузки
+	//хук из model получение данных ошибки и загрузки
 	const { isLoading, errorMessage } = useFetchingBoards()
 	const boards = useSelector((state: StoreState) => state.boards)
-	
-  useEffect(() => {
-    try {
-      localStorage.setItem('boards', JSON.stringify(boards))
-    } catch {
-      // ignore
-    }
-  }, [boards])
+
+	useEffect(() => {
+		try {
+			localStorage.setItem('boards', JSON.stringify(boards))
+		} catch {
+			// ignore
+		}
+	}, [boards])
 
 	return (
 		<div className='boards'>
@@ -47,9 +47,12 @@ export function Boards() {
 				) : errorMessage ? (
 					<div className='error'>{errorMessage}</div>
 				) : boards.length === 0 ? (
-					<p className='board-text'>
-						<i>Добавьте первую доску</i>
-					</p>
+					<div className='board-wrapper'>
+						<i className='board-text'>Добавьте первую доску</i>
+						<div className='create-board' onClick={() => setIsOpenModal(true)}>
+							<img src='assets/icon-board.svg' alt='' /> + Create New Board
+						</div>
+					</div>
 				) : (
 					<ul>
 						{boards.map((board, ind) => (
