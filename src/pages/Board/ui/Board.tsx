@@ -26,6 +26,7 @@ export function Board() {
       if (data) {
         addTasks({ board: boardId, tasks: data.tasks });
       }
+      setIsLoad(false)
     })();
   }, [boardId]);
 
