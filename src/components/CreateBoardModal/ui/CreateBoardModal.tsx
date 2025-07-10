@@ -25,7 +25,7 @@ export function CreateBoardModal({ onSetIsOpenModal }: CreateBoardModalProps) {
 	const submitHandler = async (data: BoardFormType) => {
 		try {
 			const createdBoard = await postData<BoardFormType, BoardResType>(
-				'boards/create',
+				'boards',
 				{ name: data.name },
 				BoardResSchema
 			)

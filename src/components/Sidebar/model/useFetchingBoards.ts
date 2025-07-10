@@ -35,6 +35,7 @@ export const useFetchingBoards = () => {
 					'boards',
 					BoardResSchema.array()
 				)
+				
 
 				if (serverBoards) {
 					const merged = mergeBoards(cachedBoards, serverBoards)

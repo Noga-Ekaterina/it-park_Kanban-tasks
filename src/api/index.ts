@@ -14,6 +14,8 @@ export async function getData<T>(
 			},
 		})
 
+		console.log(response.data);
+		
 		// Валидация данных через Zod схему
 		return schema.parse(response.data)
 	} catch (error) {
@@ -26,6 +28,8 @@ export async function getData<T>(
 	}
 }
 
+const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJzdHJpbmcifQ.-etkOdnSUjYskkGhEd7ntmsmw8Ld8G9cF5xIwDQ7O7E'
+
 // POST запрос для создания доски или других сущностей
 export async function postData<TReq, TRes>(
 	path: string,
@@ -34,12 +38,11 @@ export async function postData<TReq, TRes>(
 ): Promise<TRes | undefined> {
 	try {
 		const response = await axios.post<unknown>(
-			`https://amogus22877769.work.gd/api/${path}`,
+			`/api/${path}`, // ✅ теперь будет идти через прокси на mockapi
 			body,
 			{
 				headers: {
-					Authorization:
-						'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJzdHJpbmcifQ.-etkOdnSUjYskkGhEd7ntmsmw8Ld8G9cF5xIwDQ7O7E',
+					Authorization: `Bearer ${TOKEN}`,
 					'Content-Type': 'application/json',
 				},
 			}
