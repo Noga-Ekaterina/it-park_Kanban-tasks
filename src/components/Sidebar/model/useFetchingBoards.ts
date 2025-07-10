@@ -5,14 +5,6 @@ import { setBoards } from '../../../store/slices/boardsSlice'
 import type { BoardResType } from '../../../types/types'
 import { BoardResSchema } from '../../../types/zodShemas'
 
-// Простая функция для объединения досок
-function mergeBoards(local: BoardResType[], server: BoardResType[]): BoardResType[] {
-	const onlyLocal = local.filter(localBoard => {
-		return !server.some(serverBoard => serverBoard.id === localBoard.id)
-	})
-	return [...server, ...onlyLocal]
-}
-
 export const useFetchingBoards = () => {
 	const dispatch = useDispatch()
 	const [errorMessage, setErrorMessage] = useState<string | null>(null)
@@ -23,25 +15,27 @@ export const useFetchingBoards = () => {
 			setIsLoading(true)
 
 			try {
-				let cachedBoards: BoardResType[] = []
+				// 1. Показать локальные доски (если есть) до загрузки
 				const cached = localStorage.getItem('boards')
-
 				if (cached) {
-					cachedBoards = JSON.parse(cached)
+					const cachedBoards: BoardResType[] = JSON.parse(cached)
 					dispatch(setBoards(cachedBoards))
 				}
 
+				// 2. Получить с сервера
 				const serverBoards = await getData<BoardResType[]>(
 					'boards',
 					BoardResSchema.array()
 				)
-				
 
-				if (serverBoards) {
-					const merged = mergeBoards(cachedBoards, serverBoards)
-					dispatch(setBoards(merged))
-					localStorage.setItem('boards', JSON.stringify(merged))
+				if (!serverBoards) {
+					setErrorMessage('Ошибка загрузки досок с сервера')
+					return
 				}
+
+				// 3. Перезаписать стейт и localStorage
+				dispatch(setBoards(serverBoards))
+				localStorage.setItem('boards', JSON.stringify(serverBoards))
 			} catch {
 				setErrorMessage('Ошибка загрузки досок с сервера')
 			} finally {
