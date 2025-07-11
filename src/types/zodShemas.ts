@@ -21,8 +21,8 @@ export const TasksResSchema = z.object({
     TaskSchema.extend({
       id: z.coerce.number(),
       board_id: z.number(),
-      board_user_id: z.string(),
+      board_user_id: z.number(),
     }),
   ),
-  user_id: z.string(),
+  user_id: z.number(),
 });
