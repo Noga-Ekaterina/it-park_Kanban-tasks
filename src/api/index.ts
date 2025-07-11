@@ -3,7 +3,7 @@ import { ZodError, ZodType } from "zod";
 
 export async function getData<T>(
   path: string,
-  schema: ZodType<T>, // Используем ZodType<T> вместо any
+  schema: ZodType<T> // Используем ZodType<T> вместо any
 ): Promise<T | undefined> {
   try {
     // Используем unknown для данных перед валидацией
