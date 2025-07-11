@@ -13,7 +13,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://6830d2ac6205ab0d6c3a884e.mockapi.io",
+        target: "https://amogus22877769.work.gd/api",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
