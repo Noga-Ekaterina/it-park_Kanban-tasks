@@ -2,9 +2,12 @@ import iconDark from "@/assets/icon-dark-theme.svg";
 import iconlight from "@/assets/icon-light-theme.svg";
 import iconSidebar from "@/assets/icon-hide-sidebar.svg";
 import { useEffect, useState } from "react";
-import type { SidebarFooterProps } from "../IOpenClouseSidebar";
 
-export function SidebarFooter({ setIsHideSidebar }: SidebarFooterProps) {
+interface IProps {
+  setIsHideSidebar: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export function SidebarFooter({ setIsHideSidebar }: IProps) {
   const [isDarkTheme, setIsDarkTheme] = useState<boolean>(
     () => localStorage.getItem("isDarkTheme") === "true" || false
   );
