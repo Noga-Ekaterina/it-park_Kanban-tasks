@@ -7,14 +7,16 @@ function Task({ title, id, status }: Omit<TaskType, "description">) {
     type: DragDropItems.TASK,
     item: { id, status },
     collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
+      isDragging: monitor.isDragging(),
     }),
   }));
 
   return (
     <div
       className="task"
-      ref={refDrag}
+      ref={(node) => {
+        refDrag(node);
+      }}
       style={{ opacity: isDragging ? 0.5 : 1 }}
     >
       <h4>{title}</h4>

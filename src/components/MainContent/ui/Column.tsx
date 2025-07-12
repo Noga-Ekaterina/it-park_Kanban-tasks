@@ -20,7 +20,7 @@ function Column({ tasksStatus, title, background }: Props) {
     : [];
   const changeStatus = useChangeStatus();
 
-  const [, drop] = useDrop<Omit<TaskType, "description">>(() => ({
+  const [, refDrop] = useDrop<Omit<TaskType, "description">>(() => ({
     accept: DragDropItems.TASK,
     drop: (item) => changeStatus(boardId || "", item.id, tasksStatus),
     canDrop: (item) => {
@@ -29,7 +29,12 @@ function Column({ tasksStatus, title, background }: Props) {
   }));
 
   return (
-    <div className="column" ref={drop}>
+    <div
+      className="column"
+      ref={(node) => {
+        refDrop(node);
+      }}
+    >
       <div className="column-header">
         <span className="bullet" style={{ background }}></span>
         <h3>
