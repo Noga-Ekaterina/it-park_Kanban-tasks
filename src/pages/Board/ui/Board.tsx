@@ -4,8 +4,8 @@ import { useActions } from "../../../store/useActions.ts";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getData } from "../../../api";
-import { TasksResSchema } from "../../../types/zodShemas.ts";
-import type { TasksResType } from "../../../types/types.ts";
+import { BoardTasksResSchema } from "../../../types/zodShemas.ts";
+import type { BoardTasksResType } from "../../../types/types.ts";
 import { useTasksState } from "../../../store/slices/tasksSlice.ts";
 
 export function Board() {
@@ -19,9 +19,9 @@ export function Board() {
 
     (async () => {
       setIsLoad(true);
-      const data = await getData<TasksResType>(
+      const data = await getData<BoardTasksResType>(
         `boards/${boardId}`,
-        TasksResSchema,
+        BoardTasksResSchema,
       );
       if (data) {
         addTasks({ board: boardId, tasks: data.tasks });
