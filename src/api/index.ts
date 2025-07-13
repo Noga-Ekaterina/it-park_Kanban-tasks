@@ -10,7 +10,7 @@ export async function getData<T>(
     const response = await axios.get<unknown>(`/api/${path}`, {
       headers: {
         Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywidXNlcm5hbWUiOiJrYXQifQ.CqxvqUFoaDAkQqBpa3Tye8eBBNti5a_0kZHoVtnpAXo",
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJrYXQifQ.q3aQ7uOhBL_B4c4WdfaWrgn7clW5wHD8kqAk9CukovQ",
       },
     });
 
