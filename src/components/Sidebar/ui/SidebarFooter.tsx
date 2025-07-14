@@ -9,7 +9,7 @@ interface IProps {
 
 export function SidebarFooter({ setIsHideSidebar }: IProps) {
   const [isDarkTheme, setIsDarkTheme] = useState<boolean>(
-    () => localStorage.getItem("isDarkTheme") === "true" || false
+    () => localStorage.getItem("isDarkTheme") === "true" || false,
   );
 
   useEffect(() => {
