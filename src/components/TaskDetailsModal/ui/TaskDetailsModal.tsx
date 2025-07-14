@@ -41,7 +41,7 @@ export function TaskDetailsModal() {
               <button className="delete-task">Delete Task</button>
             </div>
           </div>
-          <button className="close-modal">
+          <button className="close-modal" onClick={() => navigate(-1)}>
             <img src={closeIcon} alt="Close" />
           </button>
         </div>
