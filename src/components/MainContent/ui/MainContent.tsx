@@ -17,13 +17,13 @@ export function MainContent({ isLoad }: IProps) {
       ) : (
         <div className="kanban-board">
           {/* <!-- Todo Column --> */}
-          <Column index={0} title={"TODO"} background={"#49C4E5"} />
+          <Column tasksStatus={0} title={"TODO"} background={"#49C4E5"} />
 
           {/* <!-- Doing Column --> */}
-          <Column index={1} title={"DOING"} background={"#8471F2"} />
+          <Column tasksStatus={1} title={"DOING"} background={"#8471F2"} />
 
           {/* <!-- Done Column --> */}
-          <Column index={2} title={"DONE"} background={"#67E2AE"} />
+          <Column tasksStatus={2} title={"DONE"} background={"#67E2AE"} />
         </div>
       )}
     </div>
