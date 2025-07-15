@@ -33,5 +33,5 @@ ReactDOM.createRoot(root as HTMLElement).render(
         <Route path="*" element={<Home />} />
       </Routes>
     </Provider>
-  </BrowserRouter>,
+  </BrowserRouter>
 );
