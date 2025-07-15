@@ -4,6 +4,8 @@ import { CreateBoardModal } from 'src/components/CreateBoardModal'
 import type { StoreState } from 'src/store'
 import { useFetchingBoards } from '../model/useFetchingBoards'
 import { Loader } from './Loader/ui/Loader'
+import iconBoard from '../../../assets/icon-board.svg'
+import boardImg from '../../../assets/icon-board.svg'
 
 export function Boards() {
 	//модалка открытие и сохранение при обновлении
@@ -61,12 +63,12 @@ export function Boards() {
 								className={activeIndex === ind ? 'active' : ''}
 								onClick={() => setActiveIndex(ind)}
 							>
-								<img src='/assets/icon-board.svg' alt='Board Img' />
+								<img src={boardImg} alt='Board Img' />
 								{board.name}
 							</li>
 						))}
 						<li className='create-board' onClick={() => setIsOpenModal(true)}>
-							<img src='assets/icon-board.svg' alt='' /> + Create New Board
+							<img src={iconBoard} alt='' /> + Create New Board
 						</li>
 					</ul>
 				)}
