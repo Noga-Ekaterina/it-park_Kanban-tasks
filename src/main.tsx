@@ -10,28 +10,32 @@ import { CreateTask } from "./pages/CreateTask";
 import { CreateBoard } from "./pages/CreateBoard";
 import { Provider } from "react-redux";
 import { store } from "./store";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 const root = document.getElementById("root");
 
 ReactDOM.createRoot(root as HTMLElement).render(
   <BrowserRouter>
     <Provider store={store}>
-      <Routes>
-        <Route path="/" element={<Home />}>
-          <Route path="boards">
-            <Route path=":boardId" element={<Board />}>
-              <Route path="edit" element={<EditBoard />} />
-              <Route path="tasks">
-                <Route path="create" element={<CreateTask />} />
-                <Route path=":taskId" element={<Task />} />
-                <Route path=":taskId/edit" element={<EditTask />} />
+      <DndProvider backend={HTML5Backend}>
+        <Routes>
+          <Route path="/" element={<Home />}>
+            <Route path="boards">
+              <Route path=":boardId" element={<Board />}>
+                <Route path="edit" element={<EditBoard />} />
+                <Route path="tasks">
+                  <Route path="create" element={<CreateTask />} />
+                  <Route path=":taskId" element={<Task />} />
+                  <Route path=":taskId/edit" element={<EditTask />} />
+                </Route>
+                <Route path="create" element={<CreateBoard />} />
               </Route>
-              <Route path="create" element={<CreateBoard />} />
             </Route>
           </Route>
-        </Route>
-        <Route path="*" element={<Home />} />
-      </Routes>
+          <Route path="*" element={<Home />} />
+        </Routes>
+      </DndProvider>
     </Provider>
   </BrowserRouter>
 );
