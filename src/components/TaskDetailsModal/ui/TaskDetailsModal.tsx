@@ -1,35 +1,61 @@
+import menuIcon from "@/assets/icon-vertical-ellipsis.svg";
+import closeIcon from "@/assets/icon-cross.svg";
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useTasksState } from "../../../store/slices/tasksSlice.ts";
+
+const statuses = ["TODO", "DOING", "DONE"];
+
 export function TaskDetailsModal() {
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
+
+  const { tasks } = useTasksState();
+  const { boardId, taskId } = useParams();
+  const task =
+    boardId && taskId
+      ? tasks[boardId]?.find(({ id }) => String(id) == taskId)
+      : null;
+
+  const navigate = useNavigate();
+
   return (
-    <div className="modal-overlay task-modal hidden">
+    <div className="modal-overlay task-modal">
       <div className="modal task-details-modal">
         <div className="modal-header">
-          <h2 className="task-title">Build UI for onboarding flow</h2>
+          <h2 className="task-title">
+            {task ? task.title : "Задачи не существует"}
+          </h2>
           <div className="task-actions">
-            <button className="btn-ellipsis task-menu-btn">
-              <img src="assets/icon-vertical-ellipsis.svg" alt="Actions" />
-            </button>
-            <div className="task-menu hidden">
-              <button className="edit-task">Edit Task</button>
+            {task && (
+              <button
+                className="btn-ellipsis task-menu-btn"
+                onClick={() => setIsOpenMenu((prevState) => !prevState)}
+              >
+                <img src={menuIcon} alt="Actions" />
+              </button>
+            )}
+            <div className={`task-menu ${!isOpenMenu ? "hidden" : ""}`}>
+              <button className="edit-task" onClick={() => navigate("edit")}>
+                Edit Task
+              </button>
               <button className="delete-task">Delete Task</button>
             </div>
           </div>
-          <button className="close-modal">
-            <img src="assets/icon-cross.svg" alt="Close" />
+          <button className="close-modal" onClick={() => navigate(-1)}>
+            <img src={closeIcon} alt="Close" />
           </button>
         </div>
 
-        <div className="task-content">
-          <p className="task-description">
-            This task involves creating all UI components for the new user
-            onboarding process including welcome screens, tutorial steps, and
-            account setup forms.
-          </p>
+        {task && (
+          <div className="task-content">
+            <p className="task-description">{task.description}</p>
 
-          <div className="task-status">
-            <label>Current Status</label>
-            <p>Done</p>
+            <div className="task-status">
+              <label>Current Status</label>
+              <p>{statuses[task.status]}</p>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
