@@ -29,3 +29,7 @@ export const BoardTasksResSchema = z.object({
   tasks: z.array(TaskResSchema),
   user_id: z.number(),
 });
+
+export const TokenSchema = z.object({
+  token: z.string(),
+});
