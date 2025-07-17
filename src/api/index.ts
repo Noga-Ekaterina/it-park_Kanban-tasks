@@ -6,12 +6,16 @@ export async function getData<T>(
   path: string,
   schema: ZodType<T>, // Используем ZodType<T> вместо any
 ): Promise<T | undefined> {
+  const token: string | null = localStorage.getItem("token");
+  if (token === null) {
+    alert("Token not found");
+    return;
+  }
   try {
     // Используем unknown для данных перед валидацией
     const response = await axios.get<unknown>(`/api/${path}`, {
       headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJrYXQifQ.q3aQ7uOhBL_B4c4WdfaWrgn7clW5wHD8kqAk9CukovQ",
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -32,14 +36,18 @@ export async function updata<D, T>(
   data: D,
   schema: ZodType<T>,
 ): Promise<T | undefined> {
+  const token: string | null = localStorage.getItem("token");
+  if (token === null) {
+    alert("Token not found");
+    return;
+  }
   try {
     // Используем unknown для данных перед валидацией
     const response = await axios.patch<unknown>(`/api/${path}`, data, {
       headers: {
         "content-type": "application/json",
         accept: "application/json",
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwidXNlcm5hbWUiOiJrYXQifQ.q3aQ7uOhBL_B4c4WdfaWrgn7clW5wHD8kqAk9CukovQ",
+        Authorization: `Bearer ${token}`,
       },
     });
 
