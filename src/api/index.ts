@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
-import z, { ZodError, ZodType } from "zod";
+import { TokenSchema } from "src/types/zodShemas";
+import { ZodError, ZodType } from "zod";
 
 export async function getData<T>(
   path: string,
@@ -103,11 +104,7 @@ export async function signUp(
       },
     );
 
-    return z
-      .object({
-        token: z.string(),
-      })
-      .parse(response.data).token;
+    return TokenSchema.parse(response.data).token;
   } catch (error) {
     if (error instanceof AxiosError || error instanceof ZodError) {
       console.error("Request failed:", error);
@@ -135,11 +132,7 @@ export async function logIn(
       },
     );
 
-    return z
-      .object({
-        token: z.string(),
-      })
-      .parse(response.data).token;
+    return TokenSchema.parse(response.data).token;
   } catch (error) {
     if (error instanceof AxiosError || error instanceof ZodError) {
       if (
