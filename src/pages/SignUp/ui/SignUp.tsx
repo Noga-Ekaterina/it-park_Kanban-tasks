@@ -8,7 +8,7 @@ interface LogInInputs {
 }
 
 export function SignUp() {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
