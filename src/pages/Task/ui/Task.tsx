@@ -1,7 +1,5 @@
+import { TaskDetailsModal } from "../../../components/TaskDetailsModal";
+
 export function Task() {
-  return (
-    <>
-      <div>Task</div>
-    </>
-  );
+  return <TaskDetailsModal />;
 }

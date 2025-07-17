@@ -1,20 +1,10 @@
+import { useState } from "react";
 import close from "../../../assets/icon-cross.svg";
 
-export function EditTaskModal({
-  isEditOpen,
-  setIsEditOpen,
-}: {
-  isEditOpen: boolean;
-  setIsEditOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+export function EditTaskModal() {
+  const [isOpenEditModal, setIsOpenEditModal] = useState<boolean>(false);
   return (
-    <div
-      className={
-        isEditOpen
-          ? "modal-overlay edit-task-modal"
-          : "modal-overlay edit-task-modal hidden"
-      }
-    >
+    <div className={"modal-overlay edit-task-modal hidden"}>
       <div className="modal edit-task-modal-content">
         <div className="modal-header">
           <h2>Edit Task</h2>

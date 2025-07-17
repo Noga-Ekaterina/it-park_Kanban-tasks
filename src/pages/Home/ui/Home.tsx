@@ -1,10 +1,13 @@
 import { Outlet } from "react-router";
+import { Sidebar } from "../../../components/Sidebar";
 
 export function Home() {
   return (
     <>
-      <div>home</div>
-      <Outlet />
+      <div className="app-container">
+        <Sidebar />
+        <Outlet />
+      </div>
     </>
   );
 }

@@ -8,21 +8,24 @@ export const BoardResSchema = BoardSchema.extend({
   id: z.coerce.number(),
 });
 
-export const TaskSchema = z.object({
+export const TaskUiSchema = z.object({
   title: z.string().min(1, "Название обязательно"),
   description: z.string().optional(),
   status: z.number(),
 });
 
-export const TasksResSchema = z.object({
+export const TaskSchema = TaskUiSchema.extend({
+  id: z.coerce.number(),
+});
+
+export const TaskResSchema = TaskSchema.extend({
+  board_id: z.number(),
+  board_user_id: z.number(),
+});
+
+export const BoardTasksResSchema = z.object({
   id: z.number(),
   name: z.string(),
-  tasks: z.array(
-    TaskSchema.extend({
-      id: z.coerce.number(),
-      board_id: z.number(),
-      board_user_id: z.string(),
-    })
-  ),
-  user_id: z.string(),
+  tasks: z.array(TaskResSchema),
+  user_id: z.number(),
 });
