@@ -751,3 +751,120 @@ h1 {
     padding: 24px;
   }
 }
+
+/* Login  */
+
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background-body-color);
+}
+
+.login-box {
+  width: 100%;
+  max-width: 28rem;
+  padding: 2rem;
+  background-color: var(--background-navbar-task-color);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 1rem;
+}
+
+.login-title {
+  margin-top: 1.5rem;
+  font-size: 1.875rem;
+  font-weight: 800;
+  text-align: center;
+  color: var(--text-color);
+}
+
+.login-subtitle {
+  margin-top: 0.5rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--medium-grey);
+}
+
+.login-link {
+  color: var(--primary-color);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.login-link:hover {
+  color: var(--primary-light);
+}
+
+.login-form {
+  margin-top: 2rem;
+}
+
+.form-group-login {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--medium-grey);
+  margin-bottom: 0.25rem;
+}
+
+.form-input {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(156, 163, 175, 0.5);
+  border-radius: 0.25rem;
+  background-color: var(--background-navbar-task-color);
+  color: var(--text-color);
+  font-size: 0.875rem;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 95, 199, 0.1);
+}
+
+.form-remember {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox {
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid rgba(156, 163, 175, 0.5);
+  border-radius: 0.25rem;
+  margin-right: 0.5rem;
+  accent-color: var(--primary-color);
+}
+
+.login-button {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  color: var(--white);
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: var(--primary-light);
+}
+
+.login-footer {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--medium-grey);
+}
+
+/* Login end  */
