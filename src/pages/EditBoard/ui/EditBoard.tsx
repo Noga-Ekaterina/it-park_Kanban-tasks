@@ -1,4 +1,4 @@
-import { EditBoardModal } from "src/components/EditBoardModal/inxex";
+import { EditBoardModal } from "src/components/EditBoardModal";
 
 export function EditBoard() {
   return <EditBoardModal />;
