@@ -1,4 +1,10 @@
+import iconVerticalEllipsis from "@/assets/icon-vertical-ellipsis.svg";
+import { useState } from "react";
+import { BoardOptionsPopup } from "src/components/BoardOptionsPopup";
+
 export function Header() {
+  const [isOptionsOpen, setIsOptionsOpen] = useState(false);
+
   return (
     <header>
       <div className="header-left">
@@ -11,10 +17,15 @@ export function Header() {
           <img src="assets/icon-add-task-mobile.svg" alt="" />
           <span>Add New Task</span>
         </button>
-        <button className="btn-ellipsis">
-          <img src="assets/icon-vertical-ellipsis.svg" alt="" />
+        <button
+          className="btn-ellipsis"
+          onClick={() => setIsOptionsOpen((prev) => !prev)}
+          style={{ padding: "0 15px" }}
+        >
+          <img src={iconVerticalEllipsis} alt="openPopupIcon" />
         </button>
       </div>
+      {isOptionsOpen && <BoardOptionsPopup />}
     </header>
   );
 }
