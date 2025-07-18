@@ -12,6 +12,7 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { DeleteBoard } from "./pages/DeleteBoard";
 
 const root = document.getElementById("root");
 
@@ -24,6 +25,7 @@ ReactDOM.createRoot(root as HTMLElement).render(
             <Route path="boards">
               <Route path=":boardId" element={<Board />}>
                 <Route path="edit" element={<EditBoard />} />
+                <Route path="delete" element={<DeleteBoard />} />
                 <Route path="tasks">
                   <Route path="create" element={<CreateTask />} />
                   <Route path=":taskId" element={<Task />} />
