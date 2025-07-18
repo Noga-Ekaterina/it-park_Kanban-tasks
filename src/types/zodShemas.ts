@@ -6,7 +6,10 @@ export const BoardSchema = z.object({
 
 export const BoardResSchema = BoardSchema.extend({
   id: z.coerce.number(),
+  user_id: z.coerce.number(),
 });
+
+export const BoardsResSchema = z.array(BoardResSchema);
 
 export const TaskUiSchema = z.object({
   title: z.string().min(1, "Название обязательно"),
