@@ -41,7 +41,7 @@ export function EditBoardModal() {
       const updatedBoard = await updata(
         `boards/${boardId}/edit`,
         updateData,
-        BoardResSchema
+        BoardResSchema,
       );
 
       if (updatedBoard) {
