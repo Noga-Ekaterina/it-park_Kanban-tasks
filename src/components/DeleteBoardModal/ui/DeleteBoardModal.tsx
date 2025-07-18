@@ -21,7 +21,7 @@ export function DeleteBoardModal() {
       const response = await updata(
         `boards/${boardId}/delete`,
         {},
-        BoardResSchema
+        BoardResSchema,
       );
 
       if (response) {

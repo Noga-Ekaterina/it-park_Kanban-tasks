@@ -43,5 +43,5 @@ ReactDOM.createRoot(root as HTMLElement).render(
         </Routes>
       </DndProvider>
     </Provider>
-  </BrowserRouter>
+  </BrowserRouter>,
 );
