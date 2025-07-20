@@ -1,32 +1,80 @@
-export function CreateBoardModal() {
-  return (
-    <div className="modal-overlay board-modal hidden">
-      <div className="modal create-board-modal">
-        <div className="modal-header">
-          <h2>Add New Board</h2>
-          <button className="close-modal">
-            <img src="assets/icon-cross.svg" alt="Close" />
-          </button>
-        </div>
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
+import { boardsActions } from 'src/store/slices/boardsSlice'
+import { postData } from '../../../api'
+import { default as boardClose } from '../../../assets/icon-cross.svg'
+import type { BoardResType, BoardType } from '../../../types/types'
+import { BoardResSchema, BoardSchema } from '../../../types/zodShemas'
+interface CreateBoardModalProps {
+	onSetIsOpenModal: (value: boolean) => void
+}
 
-        <form id="create-board-form">
-          {/* <!-- Board Name --> */}
-          <div className="form-group">
-            <label htmlFor="board-name">Board Name</label>
-            <input
-              type="text"
-              id="board-name"
-              placeholder="e.g. Web Development"
-              required
-            />
-          </div>
+export function CreateBoardModal({ onSetIsOpenModal }: CreateBoardModalProps) {
+	const dispatch = useDispatch()
 
-          {/* <!-- Submit Button --> */}
-          <button type="submit" className="btn-primary">
-            Create New Board
-          </button>
-        </form>
-      </div>
-    </div>
-  );
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm<BoardType>({
+		resolver: zodResolver(BoardSchema),
+		mode: 'onChange',
+	})
+
+	const submitHandler = async (data: BoardType) => {
+    
+		try {
+			const createdBoard = await postData<BoardResType>(
+				'boards/create',
+				{ name: data.name },
+				BoardResSchema
+			)
+
+			if (createdBoard) {
+				dispatch(boardsActions.addBoard(createdBoard))
+				onSetIsOpenModal(false)
+			}
+
+      console.log(createdBoard);
+      
+		} catch {
+			alert('Ошибка при создании доски')
+		}
+	}
+
+	return (
+		<div className='modal-overlay board-modal'>
+			<div className='modal create-board-modal'>
+				<div className='modal-header'>
+					<h2>Add New Board</h2>
+					<button
+						className='close-modal'
+						onClick={() => onSetIsOpenModal(false)}
+					>
+						<img src={boardClose} alt='Close' />
+					</button>
+				</div>
+
+				<form id='create-board-form' onSubmit={handleSubmit(submitHandler)}>
+					<div className='form-group'>
+						<label htmlFor='board-name'>Board Name</label>
+						<p style={{ color: 'red', marginBottom: 10 }}>
+							{errors.name?.message}
+						</p>
+						<input
+							type='text'
+							id='board-name'
+							placeholder='e.g. Web Development'
+							{...register('name')}
+						/>
+					</div>
+
+					<button type='submit' className='btn-primary'>
+						Create New Board
+					</button>
+				</form>
+			</div>
+		</div>
+	)
 }
