@@ -1,48 +1,17 @@
-import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 import { CreateBoardModal } from 'src/components/CreateBoardModal'
-import type { StoreState } from 'src/store'
 import {
 	default as boardImg,
 	default as iconBoard,
 } from '../../../assets/icon-board.svg'
+import { useActiveBoard } from '../model/useActiveBoard'
 import { useFetchingBoards } from '../model/useFetchingBoards'
+import { useModal } from '../model/useModal'
 import { Loader } from './Loader/ui/Loader'
 
-
 export function Boards() {
-	//модалка открытие и сохранение при обновлении
-	const [isOpenModal, setIsOpenModal] = useState(() => {
-		try {
-			const saved = localStorage.getItem('isOpenModal')
-			return saved === 'true'
-		} catch {
-			return false
-		}
-	})
-	useEffect(() => {
-		try {
-			localStorage.setItem('isOpenModal', isOpenModal.toString())
-		} catch {
-			// ignore
-		}
-	}, [isOpenModal])
-
-	//активная li
-	const [activeIndex, setActiveIndex] = useState<number | null>(null)
-	//хук из model получение данных ошибки и загрузки
+	const { isOpenModal, setIsOpenModal } = useModal()
 	const { isLoading, errorMessage } = useFetchingBoards()
-	const { boards } = useSelector((state: StoreState) => state.boards)
-
-	// useEffect(() => {
-	// 	try {
-	// 		localStorage.setItem('boards', JSON.stringify(boards))
-	// 	} catch {
-	// 		// ignore
-	// 	}
-	// }, [boards])
-
-  
+	const { boards, activeBoardId, handleSelectBoard } = useActiveBoard()
 
 	return (
 		<div className='boards'>
@@ -56,17 +25,22 @@ export function Boards() {
 				) : boards.length === 0 ? (
 					<div className='board-wrapper'>
 						<i className='board-text'>Добавьте первую доску</i>
-						<div className='create-board dropdown-board' onClick={() => setIsOpenModal(true)}>
+						<div
+							className='create-board dropdown-board'
+							onClick={() => setIsOpenModal(true)}
+						>
 							<img src={iconBoard} alt='' /> + Create New Board
 						</div>
 					</div>
 				) : (
 					<ul>
-						{boards.map((board, ind) => (
+						{boards.map((board) => (
 							<li
-								key={ind}
-								className={activeIndex === ind ? 'active' : 'dropdown-board'}
-								onClick={() => setActiveIndex(ind)}
+								key={board.id}
+								className={
+									board.id === activeBoardId ? 'active' : 'dropdown-board'
+								}
+								onClick={() => handleSelectBoard(board.id)}
 							>
 								<img src={boardImg} alt='Board Img' />
 								{board.name}
