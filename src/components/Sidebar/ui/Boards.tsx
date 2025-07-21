@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { CreateBoardModal } from 'src/components/CreateBoardModal'
 import {
 	default as boardImg,
@@ -35,16 +36,24 @@ export function Boards() {
 				) : (
 					<ul>
 						{boards.map((board) => (
-							<li
-								key={board.id}
-								className={
-									board.id === activeBoardId ? 'active' : 'dropdown-board'
-								}
-								onClick={() => handleSelectBoard(board.id)}
+							<Link
+								to={`/boards/${board.id}`}
+								style={{ textDecoration: 'none' }}
 							>
-								<img src={boardImg} alt='Board Img' />
-								{board.name}
-							</li>
+								{' '}
+								<li
+									key={board.id}
+									className={
+										board.id === activeBoardId
+											? 'active dropdown-board'
+											: 'dropdown-board'
+									}
+									onClick={() => handleSelectBoard(board.id)}
+								>
+									<img src={boardImg} alt='Board Img' />
+									{board.name}
+								</li>
+							</Link>
 						))}
 						<li className='create-board' onClick={() => setIsOpenModal(true)}>
 							<img src={iconBoard} alt='' /> + Create New Board

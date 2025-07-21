@@ -1,47 +1,12 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
-import { boardsActions } from 'src/store/slices/boardsSlice'
-import { postData } from '../../../api'
 import { default as boardClose } from '../../../assets/icon-cross.svg'
-import type { BoardResType, BoardType } from '../../../types/types'
-import { BoardResSchema, BoardSchema } from '../../../types/zodShemas'
-interface CreateBoardModalProps {
+import { useSubmit } from '../model/useSubmit'
+export interface CreateBoardModalProps {
 	onSetIsOpenModal: (value: boolean) => void
 }
 
 export function CreateBoardModal({ onSetIsOpenModal }: CreateBoardModalProps) {
-	const dispatch = useDispatch()
-
-	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-	} = useForm<BoardType>({
-		resolver: zodResolver(BoardSchema),
-		mode: 'onChange',
-	})
-
-	const submitHandler = async (data: BoardType) => {
-    
-		try {
-			const createdBoard = await postData<BoardResType>(
-				'boards/create',
-				{ name: data.name },
-				BoardResSchema
-			)
-
-			if (createdBoard) {
-				dispatch(boardsActions.addBoard(createdBoard))
-				onSetIsOpenModal(false)
-			}
-
-      console.log(createdBoard);
-      
-		} catch {
-			alert('Ошибка при создании доски')
-		}
-	}
+	const { register, handleSubmit, errors, submitHandler } =
+		useSubmit({onSetIsOpenModal})
 
 	return (
 		<div className='modal-overlay board-modal'>
