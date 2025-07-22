@@ -1,18 +1,16 @@
-import { Link } from 'react-router-dom'
-import { CreateBoardModal } from 'src/components/CreateBoardModal'
+import { Link, useNavigate } from 'react-router-dom'
 import {
 	default as boardImg,
 	default as iconBoard,
 } from '../../../assets/icon-board.svg'
 import { useActiveBoard } from '../model/useActiveBoard'
 import { useFetchingBoards } from '../model/useFetchingBoards'
-import { useModal } from '../model/useModal'
 import { Loader } from './Loader/ui/Loader'
 
 export function Boards() {
-	const { isOpenModal, setIsOpenModal } = useModal()
 	const { isLoading, errorMessage } = useFetchingBoards()
 	const { boards, activeBoardId, handleSelectBoard } = useActiveBoard()
+	const navigate = useNavigate()
 
 	return (
 		<div className='boards'>
@@ -28,7 +26,7 @@ export function Boards() {
 						<i className='board-text'>Добавьте первую доску</i>
 						<div
 							className='create-board dropdown-board'
-							onClick={() => setIsOpenModal(true)}
+							onClick={() => navigate(`/boards/${activeBoardId}/create`)}
 						>
 							<img src={iconBoard} alt='' /> + Create New Board
 						</div>
@@ -55,14 +53,15 @@ export function Boards() {
 								</li>
 							</Link>
 						))}
-						<li className='create-board' onClick={() => setIsOpenModal(true)}>
+						<li
+							className='create-board'
+							onClick={() => navigate(`/boards/${activeBoardId}/create`)}
+						>
 							<img src={iconBoard} alt='' /> + Create New Board
 						</li>
 					</ul>
 				)}
 			</div>
-
-			{isOpenModal && <CreateBoardModal onSetIsOpenModal={setIsOpenModal} />}
 		</div>
 	)
 }

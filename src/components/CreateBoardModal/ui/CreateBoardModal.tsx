@@ -1,12 +1,14 @@
 import { default as boardClose } from '../../../assets/icon-cross.svg'
 import { useSubmit } from '../model/useSubmit'
-export interface CreateBoardModalProps {
-	onSetIsOpenModal: (value: boolean) => void
+
+export interface Close {
+	onClose: () => void
 }
 
-export function CreateBoardModal({ onSetIsOpenModal }: CreateBoardModalProps) {
-	const { register, handleSubmit, errors, submitHandler } =
-		useSubmit({onSetIsOpenModal})
+export function CreateBoardModal({ onClose }: Close) {
+	const { register, handleSubmit, errors, submitHandler } = useSubmit({
+		onClose,
+	})
 
 	return (
 		<div className='modal-overlay board-modal'>
@@ -15,7 +17,7 @@ export function CreateBoardModal({ onSetIsOpenModal }: CreateBoardModalProps) {
 					<h2>Add New Board</h2>
 					<button
 						className='close-modal'
-						onClick={() => onSetIsOpenModal(false)}
+						onClick={onClose}
 					>
 						<img src={boardClose} alt='Close' />
 					</button>

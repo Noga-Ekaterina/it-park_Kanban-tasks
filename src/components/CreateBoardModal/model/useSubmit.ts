@@ -4,9 +4,9 @@ import { useActions } from 'src/store/useActions'
 import { postData } from '../../../api'
 import type { BoardResType, BoardType } from '../../../types/types'
 import { BoardResSchema, BoardSchema } from '../../../types/zodShemas'
-import type { CreateBoardModalProps } from '../ui/CreateBoardModal'
+import type { Close } from '../ui/CreateBoardModal'
 
-export const useSubmit = ({ onSetIsOpenModal }: CreateBoardModalProps) => {
+export const useSubmit = ({ onClose }: Close) => {
 	const { addBoard } = useActions()
 	const {
 		register,
@@ -27,7 +27,7 @@ export const useSubmit = ({ onSetIsOpenModal }: CreateBoardModalProps) => {
 
 			if (createdBoard) {
 				addBoard(createdBoard)
-				onSetIsOpenModal(false)
+				onClose()
 			}
 
 			console.log(createdBoard)
