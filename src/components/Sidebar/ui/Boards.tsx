@@ -27,7 +27,7 @@ export function Boards() {
 						<i className='board-text'>Добавьте первую доску</i>
 						<div
 							className='create-board dropdown-board'
-							onClick={() => navigate(`/boards/${activeBoardId}/create`)}
+							onClick={() => navigate(`/boards/create`)}
 						>
 							<img src={iconBoard} alt='' /> + Create New Board
 						</div>
