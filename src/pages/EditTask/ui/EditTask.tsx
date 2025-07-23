@@ -2,9 +2,11 @@ import { useTasksState } from "src/store/slices/tasksSlice";
 import close from "../../../assets/icon-cross.svg";
 import { useNavigate, useParams } from "react-router-dom";
 import { statuses } from "src/components/TaskDetailsModal/ui/TaskDetailsModal";
+import { useState } from "react";
 
 export function EditTask() {
   console.log(1);
+  const [newTitle, setNewTitle] = useState<string>("");
   const { tasks } = useTasksState();
   const { boardId, taskId } = useParams();
   const task =
@@ -31,7 +33,7 @@ export function EditTask() {
               type="text"
               id="edit-task-title"
               value={task ? task.title : ""}
-              required
+              onChange={() => (setNewTitle(task.title), console.log(newTitle))}
             />
           </div>
 
