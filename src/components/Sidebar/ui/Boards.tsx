@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import {
 	default as boardImg,
 	default as iconBoard,
@@ -11,6 +11,7 @@ export function Boards() {
 	const { isLoading, errorMessage } = useFetchingBoards()
 	const { boards, activeBoardId, handleSelectBoard } = useActiveBoard()
 	const navigate = useNavigate()
+	const location = useLocation()
 
 	return (
 		<div className='boards'>
@@ -34,28 +35,33 @@ export function Boards() {
 				) : (
 					<ul>
 						{boards.map((board) => (
-							<Link
-								to={`/boards/${board.id}`}
-								style={{ textDecoration: 'none' }}
+							<li
+								key={board.id}
+								className={
+									location.pathname === `/boards/${board.id}`
+										? 'active dropdown-board'
+										: 'dropdown-board'
+								}
 							>
-								{' '}
-								<li
-									key={board.id}
-									className={
-										board.id === activeBoardId
-											? 'active dropdown-board'
-											: 'dropdown-board'
-									}
+								<NavLink
+									to={`/boards/${board.id}`}
+									style={{
+										textDecoration: 'none',
+										display: 'flex',
+										alignItems: 'center',
+										gap: '8px',
+									}}
 									onClick={() => handleSelectBoard(board.id)}
 								>
 									<img src={boardImg} alt='Board Img' />
 									{board.name}
-								</li>
-							</Link>
+								</NavLink>
+							</li>
 						))}
+
 						<li
 							className='create-board'
-							onClick={() => navigate(`/boards/${activeBoardId}/create`)}
+							onClick={() => navigate('/boards/create')}
 						>
 							<img src={iconBoard} alt='' /> + Create New Board
 						</li>
