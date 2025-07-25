@@ -12,6 +12,7 @@ export function Boards() {
 	const { boards, activeBoardId, handleSelectBoard } = useActiveBoard()
 	const navigate = useNavigate()
 
+
 	return (
 		<div className='boards'>
 			<h3>ALL BOARDS ({boards.length})</h3>

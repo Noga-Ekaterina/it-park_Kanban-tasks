@@ -6,9 +6,7 @@ export interface Close {
 }
 
 export function CreateBoardModal({ onClose }: Close) {
-	const { register, handleSubmit, errors, submitHandler } = useSubmit({
-		onClose,
-	})
+	const { register, handleSubmit, errors, submitHandler } = useSubmit()
 
 	return (
 		<div className='modal-overlay board-modal'>
