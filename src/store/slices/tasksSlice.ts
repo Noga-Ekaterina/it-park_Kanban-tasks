@@ -1,9 +1,10 @@
-import type { TasksType, TaskType } from "../../types/types.ts";
+import type { TaskResSchema, TasksType, TaskType } from "../../types/types.ts";
 import { createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 import type { StoreState } from "../index.ts";
 
 const initialState: { tasks: Record<string, TasksType> } = {
+  // посмотреть у кати объект или массив
   tasks: {},
 };
 
@@ -13,7 +14,7 @@ export const tasksSlice = createSlice({
   reducers: {
     addTasks(
       state,
-      { payload }: { payload: { tasks: TasksType; board: string } },
+      { payload }: { payload: { tasks: TasksType; board: string } }
     ) {
       state.tasks[payload.board] = payload.tasks;
     },
@@ -27,7 +28,7 @@ export const tasksSlice = createSlice({
           id: TaskType["id"];
           newStatus: TaskType["status"];
         };
-      },
+      }
     ) {
       const { board, id, newStatus } = payload;
       const index = state.tasks[board]?.findIndex((task) => task.id === id);
@@ -35,6 +36,28 @@ export const tasksSlice = createSlice({
       if (index < 0) return;
 
       state.tasks[board][index].status = newStatus;
+    },
+    editTask(
+      state,
+      {
+        payload,
+      }: {
+        payload: {
+          boardId: string;
+          id: TaskResSchema["id"];
+          newTitle: TaskResSchema["title"];
+          newDescription: TaskResSchema["description"];
+          newStatus: TaskResSchema["status"];
+        };
+      }
+    ) {
+      const { boardId, id, newDescription, newTitle, newStatus } = payload;
+
+      const index = state.tasks[boardId]?.findIndex((task) => task.id === id);
+      if (index < 0) return;
+      state.tasks[boardId][index].title = newTitle;
+      state.tasks[boardId][index].status = newStatus;
+      state.tasks[boardId][index].description = newDescription;
     },
   },
 });
