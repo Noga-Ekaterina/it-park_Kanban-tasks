@@ -1,9 +1,10 @@
-import type { TasksType, TaskType } from "../../types/types.ts";
+import type { TaskResSchema, TasksType, TaskType } from "../../types/types.ts";
 import { createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 import type { StoreState } from "../index.ts";
 
 const initialState: { tasks: Record<string, TasksType> } = {
+  // посмотреть у кати объект или массив
   tasks: {},
 };
 
@@ -42,17 +43,21 @@ export const tasksSlice = createSlice({
         payload,
       }: {
         payload: {
-          board: string;
-          id: TaskType["id"];
-          newDescription: TaskType["description"];
-          newStatus: TaskType["status"];
+          boardId: string;
+          id: TaskResSchema["id"];
+          newTitle: TaskResSchema["title"];
+          newDescription: TaskResSchema["description"];
+          newStatus: TaskResSchema["status"];
         };
       }
     ) {
-      const { board, id, newDescription, newStatus } = payload;
-      const index = state.tasks[board]?.findIndex((task) => task.id === id);
+      const { boardId, id, newDescription, newTitle, newStatus } = payload;
 
+      const index = state.tasks[boardId]?.findIndex((task) => task.id === id);
       if (index < 0) return;
+      state.tasks[boardId][index].title = newTitle;
+      state.tasks[boardId][index].status = newStatus;
+      state.tasks[boardId][index].description = newDescription;
     },
   },
 });
