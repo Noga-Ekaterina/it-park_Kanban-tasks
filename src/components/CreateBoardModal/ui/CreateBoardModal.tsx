@@ -1,32 +1,45 @@
-export function CreateBoardModal() {
-  return (
-    <div className="modal-overlay board-modal hidden">
-      <div className="modal create-board-modal">
-        <div className="modal-header">
-          <h2>Add New Board</h2>
-          <button className="close-modal">
-            <img src="assets/icon-cross.svg" alt="Close" />
-          </button>
-        </div>
+import { default as boardClose } from '../../../assets/icon-cross.svg'
+import { useSubmit } from '../model/useSubmit'
 
-        <form id="create-board-form">
-          {/* <!-- Board Name --> */}
-          <div className="form-group">
-            <label htmlFor="board-name">Board Name</label>
-            <input
-              type="text"
-              id="board-name"
-              placeholder="e.g. Web Development"
-              required
-            />
-          </div>
+export interface Close {
+	onClose: () => void
+}
 
-          {/* <!-- Submit Button --> */}
-          <button type="submit" className="btn-primary">
-            Create New Board
-          </button>
-        </form>
-      </div>
-    </div>
-  );
+export function CreateBoardModal({ onClose }: Close) {
+	const { register, handleSubmit, errors, submitHandler } = useSubmit()
+
+	return (
+		<div className='modal-overlay board-modal'>
+			<div className='modal create-board-modal'>
+				<div className='modal-header'>
+					<h2>Add New Board</h2>
+					<button
+						className='close-modal'
+						onClick={onClose}
+					>
+						<img src={boardClose} alt='Close' />
+					</button>
+				</div>
+
+				<form id='create-board-form' onSubmit={handleSubmit(submitHandler)}>
+					<div className='form-group'>
+						<label htmlFor='board-name'>Board Name</label>
+						<p style={{ color: 'red', marginBottom: 10 }}>
+							{errors.name?.message}
+						</p>
+						<input
+							type='text'
+							id='board-name'
+							placeholder='e.g. Web Development'
+							{...register('name')}
+						/>
+					</div>
+
+					<button type='submit' className='btn-primary'>
+						Create New Board
+					</button>
+				</form>
+			</div>
+		</div>
+	)
 }
