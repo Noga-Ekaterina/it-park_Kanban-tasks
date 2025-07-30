@@ -14,6 +14,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { LogIn } from "./pages/LogIn";
 import { SignUp } from "./pages/SignUp";
+import { DeleteTaskModal } from "./components/DeleteTaskModal";
 
 const root = document.getElementById("root");
 
@@ -24,6 +25,7 @@ ReactDOM.createRoot(root as HTMLElement).render(
         <Routes>
           <Route path="logIn" element={<LogIn />} />
           <Route path="signUp" element={<SignUp />} />
+          <Route path="delete" element={<DeleteTaskModal />} />
           <Route path="/" element={<Home />}>
             <Route path="boards">
               <Route path=":boardId" element={<Board />}>
@@ -41,5 +43,5 @@ ReactDOM.createRoot(root as HTMLElement).render(
         </Routes>
       </DndProvider>
     </Provider>
-  </BrowserRouter>,
+  </BrowserRouter>
 );
