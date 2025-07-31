@@ -37,6 +37,7 @@ export const tasksSlice = createSlice({
       state.tasks[board][index].status = newStatus;
     },
   },
+  deleteTask(board:string; id:TaskType["id"])
 });
 
 export const tasksActions = tasksSlice.actions;
