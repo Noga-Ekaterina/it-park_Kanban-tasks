@@ -1,4 +1,4 @@
-import type { TaskResSchema, TasksType, TaskType } from "../../types/types.ts";
+import type { TaskResType, TasksType, TaskType } from "../../types/types.ts";
 import { createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 import type { StoreState } from "../index.ts";
@@ -44,10 +44,10 @@ export const tasksSlice = createSlice({
       }: {
         payload: {
           boardId: string;
-          id: TaskResSchema["id"];
-          newTitle: TaskResSchema["title"];
-          newDescription: TaskResSchema["description"];
-          newStatus: TaskResSchema["status"];
+          id: TaskResType["id"];
+          newTitle: TaskResType["title"];
+          newDescription: TaskResType["description"];
+          newStatus: TaskResType["status"];
         };
       }
     ) {
