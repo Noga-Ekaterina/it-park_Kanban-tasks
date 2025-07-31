@@ -16,9 +16,7 @@ export function EditTaskModal() {
     boardId && taskId
       ? tasks[boardId]?.find(({ id }) => String(id) == taskId)
       : null;
-  console.log(task);
-  console.log(typeof boardId);
-  console.log(taskId);
+
   const navigate = useNavigate();
   const { editTask } = useActions();
   const {
