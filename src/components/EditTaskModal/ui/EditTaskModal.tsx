@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { statuses } from "src/components/TaskDetailsModal/ui/TaskDetailsModal";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useActions } from "src/store/slices/useActions";
+import { useActions } from "src/store/useActions";
 import { updata } from "src/api";
 import type { TaskType } from "src/types/types";
 import { TaskSchema } from "src/types/zodShemas";
