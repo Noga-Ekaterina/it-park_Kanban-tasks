@@ -13,7 +13,7 @@ export const tasksSlice = createSlice({
   reducers: {
     addTasks(
       state,
-      { payload }: { payload: { tasks: TasksType; board: string } },
+      { payload }: { payload: { tasks: TasksType; board: string } }
     ) {
       state.tasks[payload.board] = payload.tasks;
     },
@@ -27,7 +27,7 @@ export const tasksSlice = createSlice({
           id: TaskType["id"];
           newStatus: TaskType["status"];
         };
-      },
+      }
     ) {
       const { board, id, newStatus } = payload;
       const index = state.tasks[board]?.findIndex((task) => task.id === id);
@@ -36,8 +36,24 @@ export const tasksSlice = createSlice({
 
       state.tasks[board][index].status = newStatus;
     },
+    deleteTask(
+      state,
+      {
+        payload,
+      }: {
+        payload: {
+          boardId: string;
+          id: TaskType["id"];
+        };
+      }
+    ) {
+      const { boardId, id } = payload;
+      const index = state.tasks[boardId]?.findIndex((task) => task.id === id);
+      if (index < 0) return;
+      state.tasks[boardId].splice(index);
+      console.log(1);
+    },
   },
-  deleteTask(board:string; id:TaskType["id"])
 });
 
 export const tasksActions = tasksSlice.actions;
