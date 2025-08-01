@@ -1,6 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
+import { deldata } from "src/api";
 import { useTasksState } from "src/store/slices/tasksSlice";
 import { useActions } from "src/store/useActions";
+import { TaskSchema } from "src/types/zodShemas";
 
 export const DeleteTaskModal = () => {
   const { tasks } = useTasksState();
@@ -12,6 +14,23 @@ export const DeleteTaskModal = () => {
   console.log(tasks);
   const navigate = useNavigate();
   const { deleteTask } = useActions();
+
+  const onSubmit = async () => {
+    if (!boardId) return;
+    try {
+      const resp = await deldata(
+        `boards/${boardId}/tasks/${taskId}/delete`,
+        TaskSchema
+      );
+      if (resp) {
+        deleteTask({ boardId: String(boardId), id: Number(taskId) });
+      }
+      navigate(`/boards/${boardId}`);
+    } catch {
+      console.log("Failed to delete task");
+    }
+  };
+
   return (
     <div className="modal-overlay delete-modal-task ">
       <div className="modal delete-modal">
@@ -26,10 +45,7 @@ export const DeleteTaskModal = () => {
           <button
             type="button"
             className="delete-btn"
-            onClick={() => (
-              deleteTask({ boardId: String(boardId), id: Number(taskId) }),
-              navigate(`/boards/${boardId}`)
-            )}
+            onClick={() => onSubmit()}
           >
             Delete
           </button>
