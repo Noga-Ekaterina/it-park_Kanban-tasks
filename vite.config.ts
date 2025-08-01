@@ -13,7 +13,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://45.9.75.36:5000/",
+        target: "https://amogus22877769.work.gd/api",
         changeOrigin: true,
         // rewrite: (path) => path.replace(/^\/api/, ""),
       },

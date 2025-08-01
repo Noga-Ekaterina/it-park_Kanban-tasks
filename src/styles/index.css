@@ -167,6 +167,32 @@ input:checked + .slider:before {
   cursor: pointer;
 }
 
+.hide-sidebar:hover {
+  border-radius: 0 100px 100px 0;
+  background-color: var(--background-hover-boards-color);
+}
+
+.openSidebar {
+  position: absolute;
+  align-items: center;
+  background: var(--primary-color);
+  border-radius: 0 100px 100px 0;
+  bottom: 32px;
+  display: flex;
+  height: 48px;
+  justify-content: center;
+  min-width: 0;
+  padding: 0;
+  top: auto;
+  transition: 0.3s;
+  width: 56px;
+  cursor: pointer;
+}
+
+.openSidebar:hover {
+  background-color: var(--primary-light);
+}
+
 /* Main Content Styles */
 .main-content {
   flex: 1;
