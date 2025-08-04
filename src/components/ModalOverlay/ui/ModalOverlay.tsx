@@ -1,4 +1,5 @@
 import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
+import closeIcon from "@/assets/icon-cross.svg";
 
 type FormData = {
   title: number;
@@ -21,7 +22,7 @@ export function ModalOverlay() {
         <div className="modal-header">
           <h2>Add New Task</h2>
           <button className="close-modal">
-            <img src="assets/icon-cross.svg" alt="Close" />
+            <img src={closeIcon} alt="Close" />
           </button>
         </div>
 
