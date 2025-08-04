@@ -3,14 +3,10 @@ import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
 type FormData = {
   title: number;
   description: string;
-  status: keyof Status;
+  status: Status;
 };
 
-enum Status {
-  todo = 0,
-  doing = 1,
-  done = 2,
-}
+type Status = 'todo' | 'doing' | 'done';
 
 export function ModalOverlay() {
   const { register, handleSubmit } = useForm<FormData>();
