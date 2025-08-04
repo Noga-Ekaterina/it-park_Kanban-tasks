@@ -7,6 +7,7 @@ import { useNavigate } from "react-router";
 import { useTasksState } from "../../../store/slices/tasksSlice.ts";
 import { useParams } from "react-router-dom";
 import closeIcon from "@/assets/icon-cross.svg";
+import { useState } from "react";
 
 const Status = {
   todo: 0,
@@ -24,6 +25,7 @@ export function CreateTaskModal() {
   const { tasks } = useTasksState();
   const navigate = useNavigate();
   const { boardId } = useParams() as { boardId: string };
+  const [isFail, setIsFail] = useState<boolean>(false);
 
   return (
     <div className="modal-overlay edit-task-modal">
@@ -57,7 +59,7 @@ export function CreateTaskModal() {
               });
               navigate(`/boards/${boardId}`);
             } else {
-              alert("Error creating task. Try again later.");
+              setIsFail(true);
             }
           }}
         >
@@ -105,7 +107,19 @@ export function CreateTaskModal() {
               <option value="done">Done</option>
             </select>
           </div>
-
+          {isFail && (
+            <div className="form-group">
+              {" "}
+              <p
+                style={{
+                  color: "var(--red)",
+                  fontSize: "0.75",
+                }}
+              >
+                Error creating task. Try again later
+              </p>
+            </div>
+          )}
           {/* <!-- Submit Button --> */}
           <button type="submit" className="btn-primary">
             Save Changes
