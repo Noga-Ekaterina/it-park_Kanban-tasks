@@ -22,6 +22,7 @@ ReactDOM.createRoot(root as HTMLElement).render(
     <Provider store={store}>
       <DndProvider backend={HTML5Backend}>
         <Routes>
+          <Route path="test" element={<CreateTask />} />
           <Route path="logIn" element={<LogIn />} />
           <Route path="signUp" element={<SignUp />} />
           <Route path="/" element={<Home />}>

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export function Header() {
   return (
     <header>
@@ -7,10 +9,12 @@ export function Header() {
         <img className="chevron" src="assets/icon-chevron-down.svg" alt="" />
       </div>
       <div className="header-right">
-        <button className="btn add-task">
-          <img src="assets/icon-add-task-mobile.svg" alt="" />
-          <span>Add New Task</span>
-        </button>
+        <Link to="tasks/create">
+          <button className="btn add-task">
+            <img src="assets/icon-add-task-mobile.svg" alt="" />
+            <span>Add New Task</span>
+          </button>
+        </Link>
         <button className="btn-ellipsis">
           <img src="assets/icon-vertical-ellipsis.svg" alt="" />
         </button>

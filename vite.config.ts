@@ -15,7 +15,7 @@ export default defineConfig({
       "/api": {
         target: "https://amogus22877769.work.gd/api",
         changeOrigin: true,
-        // rewrite: (path) => path.replace(/^\/api/, ""),
+        rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
   },

@@ -19,6 +19,7 @@ export function Board() {
 
     (async () => {
       setIsLoad(true);
+      console.log(`Target url is: boards/${boardId}`);
       const data = await getData<BoardTasksResType>(
         `boards/${boardId}`,
         BoardTasksResSchema,
