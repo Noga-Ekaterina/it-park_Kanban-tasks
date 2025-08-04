@@ -1,4 +1,3 @@
-import * as React from "react";
 import { postData } from "../../../api";
 import type { TaskResType, TaskUiType } from "../../../types/types.ts";
 import { TaskResSchema } from "../../../types/zodShemas.ts";
@@ -7,7 +6,7 @@ import { useNavigate } from "react-router";
 import { useTasksState } from "../../../store/slices/tasksSlice.ts";
 import { useParams } from "react-router-dom";
 import closeIcon from "@/assets/icon-cross.svg";
-import { useState } from "react";
+import {useForm} from "react-hook-form";
 
 const Status = {
   todo: 0,
@@ -17,15 +16,33 @@ const Status = {
 
 type StatusString = keyof typeof Status;
 
+type LocalTaskUiType = Omit<TaskUiType, 'status'> & { status: StatusString };
+
 export function CreateTaskModal() {
-  const [title, setTitle] = React.useState<string>("");
-  const [description, setDescription] = React.useState<string>("");
-  const [status, setStatus] = React.useState<StatusString>("doing");
   const { addTasks } = useActions();
   const { tasks } = useTasksState();
   const navigate = useNavigate();
   const { boardId } = useParams() as { boardId: string };
-  const [isFail, setIsFail] = useState<boolean>(false);
+  const { register, handleSubmit, formState: { errors }, setError } = useForm<LocalTaskUiType>();
+
+  async function onSubmit(data: LocalTaskUiType): Promise<void> {
+    const response: TaskResType | undefined = await postData<
+        TaskResType,
+        TaskUiType
+    >(`boards/${boardId}/tasks/create`, TaskResSchema, {
+      ...data,
+      status: Status[data.status],
+    });
+    if (typeof response !== "undefined") {
+      addTasks({
+        board: boardId,
+        tasks: [...tasks[boardId], response],
+      });
+      navigate(`/boards/${boardId}`);
+    } else {
+      setError('status', {message: 'Failed to create task. Try again later.'});
+    }
+  }
 
   return (
     <div className="modal-overlay edit-task-modal">
@@ -42,26 +59,7 @@ export function CreateTaskModal() {
 
         <form
           id="edit-task-form"
-          onSubmit={async (event: React.FormEvent<HTMLFormElement>) => {
-            event.preventDefault();
-            const response: TaskResType | undefined = await postData<
-              TaskResType,
-              TaskUiType
-            >(`boards/${boardId}/tasks/create`, TaskResSchema, {
-              title: title,
-              description: description,
-              status: Status[status],
-            });
-            if (typeof response !== "undefined") {
-              addTasks({
-                board: boardId,
-                tasks: [...tasks[boardId], response],
-              });
-              navigate(`/boards/${boardId}`);
-            } else {
-              setIsFail(true);
-            }
-          }}
+          onSubmit={handleSubmit(onSubmit)}
         >
           {/* <!-- Task Title --> */}
           <div className="form-group">
@@ -71,10 +69,7 @@ export function CreateTaskModal() {
               id="edit-task-title"
               placeholder="Enter title"
               required
-              value={title}
-              onInput={(event: React.ChangeEvent<HTMLInputElement>) => {
-                setTitle(event.target.value);
-              }}
+              {...register("title", {required: true})}
             />
           </div>
 
@@ -85,10 +80,7 @@ export function CreateTaskModal() {
               id="edit-task-description"
               placeholder="Enter description"
               required
-              value={description}
-              onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
-                setDescription(event.target.value);
-              }}
+              {...register('description', {required: true})}
             />
           </div>
 
@@ -97,17 +89,14 @@ export function CreateTaskModal() {
             <label htmlFor="edit-task-status">Status</label>
             <select
               id="edit-task-status"
-              onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-                setStatus(event.target.value as StatusString);
-              }}
-              value={status}
+              {...register('status')}
             >
               <option value="todo">Todo</option>
               <option value="doing">Doing</option>
               <option value="done">Done</option>
             </select>
           </div>
-          {isFail && (
+          {errors.status && (
             <div className="form-group">
               {" "}
               <p
@@ -116,7 +105,7 @@ export function CreateTaskModal() {
                   fontSize: "0.75",
                 }}
               >
-                Error creating task. Try again later
+                {errors.status.message}
               </p>
             </div>
           )}
