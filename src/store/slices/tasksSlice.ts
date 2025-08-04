@@ -50,8 +50,7 @@ export const tasksSlice = createSlice({
       const { boardId, id } = payload;
       const index = state.tasks[boardId]?.findIndex((task) => task.id === id);
       if (index < 0) return;
-      state.tasks[boardId].splice(index);
-      console.log(1);
+      state.tasks[boardId].splice(index, 1);
     },
   },
 });

@@ -15,7 +15,7 @@ export const DeleteTaskModal = () => {
   const navigate = useNavigate();
   const { deleteTask } = useActions();
 
-  const onSubmit = async () => {
+  async function onDelete() {
     if (!boardId) return;
     try {
       const resp = await deldata(
@@ -29,7 +29,7 @@ export const DeleteTaskModal = () => {
     } catch {
       console.log("Failed to delete task");
     }
-  };
+  }
 
   return (
     <div className="modal-overlay delete-modal-task ">
@@ -45,7 +45,7 @@ export const DeleteTaskModal = () => {
           <button
             type="button"
             className="delete-btn"
-            onClick={() => onSubmit()}
+            onClick={() => onDelete()}
           >
             Delete
           </button>
