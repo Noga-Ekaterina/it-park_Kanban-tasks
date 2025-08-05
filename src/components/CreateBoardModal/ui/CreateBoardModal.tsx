@@ -1,23 +1,26 @@
+import { useNavigate } from 'react-router-dom'
 import { default as boardClose } from '../../../assets/icon-cross.svg'
 import { useSubmit } from '../model/useSubmit'
 
-export interface Close {
-	onClose: () => void
-}
+export function CreateBoardModal() {
+	const { register, handleSubmit, errors, submitHandler, createdBoardId } =
+		useSubmit()
+	const navigate = useNavigate()
 
-export function CreateBoardModal({ onClose }: Close) {
-	const { register, handleSubmit, errors, submitHandler } = useSubmit()
-
+	const closeModal = () => {
+		if (createdBoardId) {
+			navigate(`/boards/${createdBoardId}`, { replace: true }) // если создана  идём к самой доске
+		} else {
+			navigate(-1) // если нет и пользователь передумад  просто закрываем модалку
+		}
+	}
 	return (
 		<div className='modal-overlay board-modal'>
 			<div className='modal create-board-modal'>
 				<div className='modal-header'>
 					<h2>Add New Board</h2>
-					<button
-						className='close-modal'
-						onClick={onClose}
-					>
-						<img src={boardClose} alt='Close' />
+					<button className='close-modal'>
+						<img src={boardClose} alt='Close' onClick={closeModal} />
 					</button>
 				</div>
 
