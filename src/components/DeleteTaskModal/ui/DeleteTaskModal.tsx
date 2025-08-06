@@ -4,7 +4,7 @@ import { useTasksState } from "src/store/slices/tasksSlice";
 import { useActions } from "src/store/useActions";
 import { TaskSchema } from "src/types/zodShemas";
 
-export const DeleteTaskModal = () => {
+export function DeleteTaskModal() {
   const { tasks } = useTasksState();
   const { boardId, taskId } = useParams();
   const task =
@@ -15,7 +15,7 @@ export const DeleteTaskModal = () => {
   const navigate = useNavigate();
   const { deleteTask } = useActions();
 
-  async function onDelete() {
+  const onDelete = async () => {
     if (!boardId) return;
     try {
       const resp = await deldata(
@@ -29,7 +29,7 @@ export const DeleteTaskModal = () => {
     } catch {
       console.log("Failed to delete task");
     }
-  }
+  };
 
   return (
     <div className="modal-overlay delete-modal-task ">
@@ -60,4 +60,4 @@ export const DeleteTaskModal = () => {
       </div>
     </div>
   );
-};
+}
