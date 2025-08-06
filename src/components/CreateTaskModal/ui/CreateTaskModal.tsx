@@ -72,9 +72,19 @@ export function CreateTaskModal() {
               type="text"
               id="edit-task-title"
               placeholder="Enter title"
-              required
               {...register("title", { required: true })}
             />
+            {errors.title && (
+                <p
+                    style={{
+                      color: "var(--red)",
+                      fontSize: "0.75",
+                      marginTop: "1rem",
+                    }}
+                >
+                  This field is required
+                </p>
+            )}
           </div>
 
           {/* <!-- Task Description --> */}
@@ -83,9 +93,19 @@ export function CreateTaskModal() {
             <textarea
               id="edit-task-description"
               placeholder="Enter description"
-              required
               {...register("description", { required: true })}
             />
+            {errors.description && (
+                  <p
+                      style={{
+                        color: "var(--red)",
+                        fontSize: "0.75",
+                        marginTop: "1rem",
+                      }}
+                  >
+                    This field is required
+                  </p>
+            )}
           </div>
 
           {/* <!-- Status --> */}
@@ -99,7 +119,6 @@ export function CreateTaskModal() {
           </div>
           {errors.status && (
             <div className="form-group">
-              {" "}
               <p
                 style={{
                   color: "var(--red)",
