@@ -1,22 +1,13 @@
 import { postData } from "../../../api";
 import type { TaskResType, TaskUiType } from "../../../types/types.ts";
-import { TaskResSchema } from "../../../types/zodShemas.ts";
+import {TaskResSchema, TaskUiSchema} from "../../../types/zodShemas.ts";
 import { useActions } from "../../../store/useActions.ts";
 import { useNavigate } from "react-router";
 import { useTasksState } from "../../../store/slices/tasksSlice.ts";
 import { useParams } from "react-router-dom";
 import closeIcon from "@/assets/icon-cross.svg";
 import { useForm } from "react-hook-form";
-
-const Status = {
-  todo: 0,
-  doing: 1,
-  done: 2,
-} as const;
-
-type StatusString = keyof typeof Status;
-
-type LocalTaskUiType = Omit<TaskUiType, "status"> & { status: StatusString };
+import {zodResolver} from "@hookform/resolvers/zod";
 
 export function CreateTaskModal() {
   const { addTasks } = useActions();
@@ -28,16 +19,15 @@ export function CreateTaskModal() {
     handleSubmit,
     formState: { errors },
     setError,
-  } = useForm<LocalTaskUiType>();
+  } = useForm<TaskUiType>({
+    resolver: zodResolver(TaskUiSchema)
+  });
 
-  async function onSubmit(data: LocalTaskUiType): Promise<void> {
+  async function onSubmit(data: TaskUiType): Promise<void> {
     const response: TaskResType | undefined = await postData<
       TaskResType,
       TaskUiType
-    >(`boards/${boardId}/tasks/create`, TaskResSchema, {
-      ...data,
-      status: Status[data.status],
-    });
+    >(`boards/${boardId}/tasks/create`, TaskResSchema, data);
     if (typeof response !== "undefined") {
       addTasks({
         board: boardId,
@@ -74,7 +64,7 @@ export function CreateTaskModal() {
               placeholder="Enter title"
               {...register("title", { required: true })}
             />
-            {errors.title && (
+            {
                 <p
                     style={{
                       color: "var(--red)",
@@ -82,9 +72,9 @@ export function CreateTaskModal() {
                       marginTop: "1rem",
                     }}
                 >
-                  This field is required
+                  {errors.title?.message}
                 </p>
-            )}
+            }
           </div>
 
           {/* <!-- Task Description --> */}
@@ -95,7 +85,7 @@ export function CreateTaskModal() {
               placeholder="Enter description"
               {...register("description", { required: true })}
             />
-            {errors.description && (
+            {
                   <p
                       style={{
                         color: "var(--red)",
@@ -103,21 +93,21 @@ export function CreateTaskModal() {
                         marginTop: "1rem",
                       }}
                   >
-                    This field is required
+                    {errors.description?.message}
                   </p>
-            )}
+            }
           </div>
 
           {/* <!-- Status --> */}
           <div className="form-group">
             <label htmlFor="edit-task-status">Status</label>
-            <select id="edit-task-status" {...register("status")}>
-              <option value="todo">Todo</option>
-              <option value="doing">Doing</option>
-              <option value="done">Done</option>
+            <select id="edit-task-status" {...register("status", { valueAsNumber: true })}>
+              <option value='0'>Todo</option>
+              <option value='1'>Doing</option>
+              <option value='2'>Done</option>
             </select>
           </div>
-          {errors.status && (
+          {
             <div className="form-group">
               <p
                 style={{
@@ -125,10 +115,10 @@ export function CreateTaskModal() {
                   fontSize: "0.75",
                 }}
               >
-                {errors.status.message}
+                {errors.status?.message}
               </p>
             </div>
-          )}
+          }
           {/* <!-- Submit Button --> */}
           <button type="submit" className="btn-primary">
             Save Changes
