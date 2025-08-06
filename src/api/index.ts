@@ -4,7 +4,7 @@ import { ZodError, ZodType } from "zod";
 
 export async function getData<T>(
   path: string,
-  schema: ZodType<T> // Используем ZodType<T> вместо any
+  schema: ZodType<T>, // Используем ZodType<T> вместо any
 ): Promise<T | undefined> {
   const token: string | null = localStorage.getItem("token");
   if (token === null) {
@@ -34,7 +34,7 @@ export async function getData<T>(
 export async function updata<D, T>(
   path: string,
   data: D,
-  schema: ZodType<T>
+  schema: ZodType<T>,
 ): Promise<T | undefined> {
   const token: string | null = localStorage.getItem("token");
   if (token === null) {
@@ -66,7 +66,7 @@ export async function updata<D, T>(
 
 export async function deldata<T>(
   path: string,
-  schema: ZodType<T>
+  schema: ZodType<T>,
 ): Promise<T | undefined> {
   const token: string | null = localStorage.getItem("token");
   if (token === null) {
@@ -97,7 +97,7 @@ export async function deldata<T>(
 }
 
 export async function isUsernameFree(
-  username: string
+  username: string,
 ): Promise<boolean | undefined> {
   try {
     const response = await axios.post<unknown>(
@@ -108,7 +108,7 @@ export async function isUsernameFree(
           "content-type": "application/json",
           accept: "application/json",
         },
-      }
+      },
     );
     if (response.status == 200) {
       return false;
@@ -130,7 +130,7 @@ export async function isUsernameFree(
 
 export async function signUp(
   username: string,
-  password: string
+  password: string,
 ): Promise<string | undefined> {
   try {
     const response = await axios.post<unknown>(
@@ -141,7 +141,7 @@ export async function signUp(
           "content-type": "application/json",
           accept: "application/json",
         },
-      }
+      },
     );
 
     return TokenSchema.parse(response.data).token;
@@ -158,7 +158,7 @@ export async function signUp(
 
 export async function logIn(
   username: string,
-  password: string
+  password: string,
 ): Promise<string | undefined> {
   try {
     const response = await axios.post<unknown>(
@@ -169,7 +169,7 @@ export async function logIn(
           "content-type": "application/json",
           accept: "application/json",
         },
-      }
+      },
     );
 
     return TokenSchema.parse(response.data).token;

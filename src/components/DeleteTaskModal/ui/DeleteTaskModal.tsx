@@ -20,7 +20,7 @@ export function DeleteTaskModal() {
     try {
       const resp = await deldata(
         `boards/${boardId}/tasks/${taskId}/delete`,
-        TaskSchema
+        TaskSchema,
       );
       if (resp) {
         deleteTask({ boardId: String(boardId), id: Number(taskId) });
