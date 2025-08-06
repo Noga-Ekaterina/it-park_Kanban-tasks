@@ -10,8 +10,8 @@ export const BoardResSchema = BoardSchema.extend({
 
 export const TaskUiSchema = z.object({
   title: z.string().min(1, "Название обязательно"),
-  description: z.string().optional(),
-  status: z.number(),
+  description: z.string().min(1, "Описание обязательно"),
+  status: z.number().min(0).max(2),
 });
 
 export const TaskSchema = TaskUiSchema.extend({

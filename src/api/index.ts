@@ -15,6 +15,38 @@ export async function getData<T>(
     // Используем unknown для данных перед валидацией
     const response = await axios.get<unknown>(`/api/${path}`, {
       headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    // Валидация данных через Zod схему
+    return schema.parse(response.data);
+  } catch (error) {
+    if (error instanceof AxiosError || error instanceof ZodError) {
+      console.error("Request failed:", error);
+      alert("Ошибка на сервере");
+    } else {
+      console.error("Unexpected error:", error);
+    }
+  }
+}
+
+export async function postData<K, V>(
+  path: string,
+  schema: ZodType<K>, // Используем ZodType<T> вместо any
+  data: V,
+): Promise<K | undefined> {
+  const token: string | null = localStorage.getItem("token");
+  if (token === null) {
+    alert("Token not found");
+    return;
+  }
+  try {
+    // Используем unknown для данных перед валидацией
+    const response = await axios.post<unknown>(`/api/${path}`, data, {
+      headers: {
+        accept: "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
