@@ -767,6 +767,47 @@ h1 {
 
 /* Edit Board Modal end */
 
+/* Delete Modal start*/
+
+.delete-modal {
+  max-width: 480px;
+}
+
+.delete-header {
+  color: var(--red);
+  font-size: 1.125rem;
+}
+.delete-content {
+  padding: 24px 0;
+  font-size: 0, 8125rem;
+  color: rgb(130, 143, 163);
+}
+.delete-modal-btn {
+  display: flex;
+  column-gap: 1rem;
+  line-height: 23px;
+}
+.delete-btn {
+  background-color: rgb(234, 85, 85);
+  border: var(--white);
+  cursor: pointer;
+  padding: 8px;
+  width: 200px;
+  color: var(--white);
+  border-radius: 20px;
+}
+.delete-cancel-btn {
+  color: rgb(99, 95, 199);
+  background-color: rgba(99, 95, 199, 0.1);
+  cursor: pointer;
+  padding: 8px;
+  width: 200px;
+  border: var(--white);
+  border-radius: 20px;
+}
+
+/*Delete task modal end*/
+
 /* Responsive Styles */
 @media (max-width: 768px) {
   .sidebar {
