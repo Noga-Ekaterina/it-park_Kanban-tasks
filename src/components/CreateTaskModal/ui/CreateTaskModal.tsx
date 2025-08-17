@@ -1,13 +1,13 @@
 import { postData } from "../../../api";
 import type { TaskResType, TaskUiType } from "../../../types/types.ts";
-import {TaskResSchema, TaskUiSchema} from "../../../types/zodShemas.ts";
+import { TaskResSchema, TaskUiSchema } from "../../../types/zodShemas.ts";
 import { useActions } from "../../../store/useActions.ts";
 import { useNavigate } from "react-router";
 import { useTasksState } from "../../../store/slices/tasksSlice.ts";
 import { useParams } from "react-router-dom";
 import closeIcon from "@/assets/icon-cross.svg";
 import { useForm } from "react-hook-form";
-import {zodResolver} from "@hookform/resolvers/zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export function CreateTaskModal() {
   const { addTasks } = useActions();
@@ -20,7 +20,7 @@ export function CreateTaskModal() {
     formState: { errors },
     setError,
   } = useForm<TaskUiType>({
-    resolver: zodResolver(TaskUiSchema)
+    resolver: zodResolver(TaskUiSchema),
   });
 
   async function onSubmit(data: TaskUiType): Promise<void> {
@@ -65,15 +65,15 @@ export function CreateTaskModal() {
               {...register("title", { required: true })}
             />
             {
-                <p
-                    style={{
-                      color: "var(--red)",
-                      fontSize: "0.75",
-                      marginTop: "1rem",
-                    }}
-                >
-                  {errors.title?.message}
-                </p>
+              <p
+                style={{
+                  color: "var(--red)",
+                  fontSize: "0.75",
+                  marginTop: "1rem",
+                }}
+              >
+                {errors.title?.message}
+              </p>
             }
           </div>
 
@@ -86,25 +86,28 @@ export function CreateTaskModal() {
               {...register("description", { required: true })}
             />
             {
-                  <p
-                      style={{
-                        color: "var(--red)",
-                        fontSize: "0.75",
-                        marginTop: "1rem",
-                      }}
-                  >
-                    {errors.description?.message}
-                  </p>
+              <p
+                style={{
+                  color: "var(--red)",
+                  fontSize: "0.75",
+                  marginTop: "1rem",
+                }}
+              >
+                {errors.description?.message}
+              </p>
             }
           </div>
 
           {/* <!-- Status --> */}
           <div className="form-group">
             <label htmlFor="edit-task-status">Status</label>
-            <select id="edit-task-status" {...register("status", { valueAsNumber: true })}>
-              <option value='0'>Todo</option>
-              <option value='1'>Doing</option>
-              <option value='2'>Done</option>
+            <select
+              id="edit-task-status"
+              {...register("status", { valueAsNumber: true })}
+            >
+              <option value="0">Todo</option>
+              <option value="1">Doing</option>
+              <option value="2">Done</option>
             </select>
           </div>
           {

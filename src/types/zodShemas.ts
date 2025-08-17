@@ -6,6 +6,7 @@ export const BoardSchema = z.object({
 
 export const BoardResSchema = BoardSchema.extend({
   id: z.coerce.number(),
+  name: z.string(),
 });
 
 export const TaskUiSchema = z.object({

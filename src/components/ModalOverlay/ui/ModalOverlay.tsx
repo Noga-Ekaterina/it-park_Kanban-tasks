@@ -7,7 +7,7 @@ type FormData = {
   status: Status;
 };
 
-type Status = 'todo' | 'doing' | 'done';
+type Status = "todo" | "doing" | "done";
 
 export function ModalOverlay() {
   const { register, handleSubmit } = useForm<FormData>();

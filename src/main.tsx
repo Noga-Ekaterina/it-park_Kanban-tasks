@@ -27,6 +27,8 @@ ReactDOM.createRoot(root as HTMLElement).render(
           <Route path="signUp" element={<SignUp />} />
           <Route path="/" element={<Home />}>
             <Route path="boards">
+              <Route index element={<Board />} />
+              <Route path="create" element={<CreateBoard />} />
               <Route path=":boardId" element={<Board />}>
                 <Route path="edit" element={<EditBoard />} />
                 <Route path="tasks">
@@ -35,7 +37,6 @@ ReactDOM.createRoot(root as HTMLElement).render(
                   <Route path=":taskId/edit" element={<EditTask />} />
                   <Route path=":taskId/delete" element={<DeleteTask />} />
                 </Route>
-                <Route path="create" element={<CreateBoard />} />
               </Route>
             </Route>
           </Route>
