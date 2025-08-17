@@ -63,34 +63,6 @@ export async function postData<K, V>(
   }
 }
 
-export async function postData<T>(
-  path: string,
-  body: unknown,
-  schema: ZodType<T>,
-): Promise<T | undefined> {
-  const token: string | null = localStorage.getItem("token");
-  if (token === null) {
-    alert("Token not found");
-    return;
-  }
-  try {
-    const response = await axios.post<unknown>(`/api/${path}`, body, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    return schema.parse(response.data);
-  } catch (error) {
-    if (error instanceof AxiosError || error instanceof ZodError) {
-      console.error("Request failed:", error);
-      alert("Ошибка на сервере");
-    } else {
-      console.error("Unexpected error:", error);
-    }
-  }
-}
-
 export async function updata<D, T>(
   path: string,
   data: D,

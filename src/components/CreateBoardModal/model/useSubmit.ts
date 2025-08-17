@@ -33,10 +33,10 @@ export const useSubmit = () => {
 
   const submitHandler = async (data: BoardType) => {
     try {
-      const createdBoard = await postData<BoardResType>(
+      const createdBoard = await postData<BoardResType, BoardType>(
         "boards/create",
-        { name: data.name },
         BoardResSchema,
+        { name: data.name },
       );
 
       if (createdBoard) {
