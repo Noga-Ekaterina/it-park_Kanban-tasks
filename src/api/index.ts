@@ -33,7 +33,7 @@ export async function getData<T>(
 
 export async function postData<T>(
   path: string,
-  body: unknown, 
+  body: unknown,
   schema: ZodType<T>,
 ): Promise<T | undefined> {
   const token: string | null = localStorage.getItem("token");
