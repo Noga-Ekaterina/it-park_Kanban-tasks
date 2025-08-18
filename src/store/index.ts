@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { boardsSlice } from "./slices/boardsSlice.ts";
 import { tasksSlice } from "./slices/tasksSlice.ts";
 import { boardsSlice } from "./slices/boardsSlice.ts";
 

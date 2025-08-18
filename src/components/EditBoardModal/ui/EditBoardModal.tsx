@@ -26,7 +26,6 @@ export function EditBoardModal() {
     defaultValues: {
       name: currentBoard?.name || "",
       id: Number(boardId),
-      user_id: currentBoard?.user_id,
     },
   });
 
@@ -41,14 +40,13 @@ export function EditBoardModal() {
       const updatedBoard = await updata(
         `boards/${boardId}/edit`,
         updateData,
-        BoardResSchema,
+        BoardResSchema
       );
 
       if (updatedBoard) {
         editBoard({
           id: Number(boardId),
           name: data.name,
-          user_id: currentBoard.user_id,
         });
 
         navigate(`/boards/${boardId}`);
