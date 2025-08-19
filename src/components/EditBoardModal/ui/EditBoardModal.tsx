@@ -1,90 +1,67 @@
-import iconCross from "@/assets/icon-cross.svg";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import type { BoardResType } from "src/types/types";
-import { BoardResSchema } from "src/types/zodShemas";
-import { useParams } from "react-router-dom";
-import { useActions } from "src/store/useActions";
-import { useBoardsState } from "src/store/slices/boardsSlice";
-import { updata } from "src/api";
+import { useNavigate } from "react-router-dom";
+import { default as boardClose } from "../../../assets/icon-cross.svg";
+import { useEditBoard } from "../model/useEditBoard";
 
 export function EditBoardModal() {
+  const { register, handleSubmit, errors, submitHandler, isEditing } =
+    useEditBoard();
   const navigate = useNavigate();
-  const { boardId } = useParams<{ boardId: string }>();
-  const { boards } = useBoardsState();
-  const currentBoard = boards.find((board) => board.id === Number(boardId));
-  const { editBoard } = useActions();
-  console.log(currentBoard);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<BoardResType>({
-    resolver: zodResolver(BoardResSchema),
-    defaultValues: {
-      name: currentBoard?.name || "",
-      id: Number(boardId),
-    },
-  });
-
-  const onSubmit = async (data: BoardResType) => {
-    if (!boardId || !currentBoard) return;
-
-    try {
-      const updateData = {
-        name: data.name,
-      };
-
-      const updatedBoard = await updata(
-        `boards/${boardId}/edit`,
-        updateData,
-        BoardResSchema
-      );
-
-      if (updatedBoard) {
-        editBoard({
-          id: Number(boardId),
-          name: data.name,
-        });
-
-        navigate(`/boards/${boardId}`);
-      }
-    } catch (error) {
-      console.error("Failed to update board:", error);
-    }
-  };
+  if (!isEditing) {
+    return (
+      <div className="modal-overlay board-modal">
+        <div className="modal edit-board-modal">
+          <div className="modal-header">
+            <h2>Доска не найдена</h2>
+            <button className="close-modal" onClick={() => navigate(-1)}>
+              <img src={boardClose} alt="Close" />
+            </button>
+          </div>
+          <p>Не удалось найти доску для редактирования.</p>
+          <button onClick={() => navigate(-1)} className="btn-primary">
+            Назад
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="modal-overlay edit-board-modal">
-      <div className="modal">
+    <div className="modal-overlay board-modal">
+      <div className="modal edit-board-modal">
         <div className="modal-header">
-          <h2>Edit Board</h2>
-          <button className="close-modal">
-            <Link to={`/boards/${boardId}`}>
-              <img src={iconCross} alt="Close" />
-            </Link>
+          <h2>Редактировать доску</h2>
+          <button className="close-modal" onClick={() => navigate(-1)}>
+            <img src={boardClose} alt="Close" />
           </button>
         </div>
 
-        <form id="edit-board-form" onSubmit={handleSubmit(onSubmit)}>
+        <form id="edit-board-form" onSubmit={handleSubmit(submitHandler)}>
           <div className="form-group">
-            <label htmlFor="board-name">Board Name</label>
+            <label htmlFor="board-name">Название доски</label>
+            <p style={{ color: "red", marginBottom: 10 }}>
+              {errors.name?.message}
+            </p>
             <input
               type="text"
               id="board-name"
-              placeholder="Tabula rasa"
+              placeholder="Tabula Rasa"
               {...register("name")}
-              className={errors.name ? "error" : ""}
             />
-            {errors.name && (
-              <p className="error-message">{errors.name.message}</p>
-            )}
           </div>
-          <button type="submit" className="btn-primary">
-            Save Changes
-          </button>
+
+          <div className="modal-buttons">
+            <button type="submit" className="btn-primary">
+              Сохранить изменения
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate(-1)}
+              className="btn-secondary"
+            >
+              Отмена
+            </button>
+          </div>
         </form>
       </div>
     </div>
