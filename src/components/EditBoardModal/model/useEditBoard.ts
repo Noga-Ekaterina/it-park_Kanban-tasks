@@ -47,6 +47,7 @@ export const useEditBoard = () => {
 
   const submitHandler = async (data: BoardType) => {
     if (!boardId || !currentBoard) return;
+    if (data.name === currentBoard.name) return navigate(-1);
 
     try {
       const updatedBoard = await updata<BoardType, BoardResType>(
