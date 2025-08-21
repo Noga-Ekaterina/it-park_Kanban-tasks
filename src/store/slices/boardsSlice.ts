@@ -22,6 +22,15 @@ export const boardsSlice = createSlice({
       const newBoard = action.payload;
       state.boards.push(newBoard);
     },
+    editBoard(state, action: PayloadAction<BoardResType>) {
+      const id = action.payload["id"];
+      const newName = action.payload["name"];
+      const newArray = [...state.boards];
+      const index = newArray.findIndex((el) => el.id === id);
+      if (index < 0) return;
+      newArray[index].name = newName;
+      state.boards = newArray;
+    },
   },
 });
 
