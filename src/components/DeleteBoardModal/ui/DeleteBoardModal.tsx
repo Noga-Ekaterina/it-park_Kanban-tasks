@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useActions } from "src/store/useActions";
 import { useBoardsState } from "src/store/slices/boardsSlice";
-import { updata } from "src/api";
+import { deldata } from "src/api";
 import { BoardResSchema } from "src/types/zodShemas";
 
 export function DeleteBoardModal() {
@@ -18,10 +18,9 @@ export function DeleteBoardModal() {
     if (!boardId || !currentBoard) return;
 
     try {
-      const response = await updata(
+      const response = await deldata(
         `boards/${boardId}/delete`,
-        {},
-        BoardResSchema,
+        BoardResSchema
       );
 
       if (response) {
