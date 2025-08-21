@@ -1,3 +1,5 @@
+import { CreateBoardModal } from "../../../components/CreateBoardModal";
+
 export function CreateBoard() {
-  return <div>CreateBoard</div>;
+  return <CreateBoardModal />;
 }

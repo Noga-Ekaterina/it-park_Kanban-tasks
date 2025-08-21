@@ -1,3 +1,11 @@
+import { Outlet } from "react-router";
+import { CreateTaskModal } from "../../../components/CreateTaskModal";
+
 export function CreateTask() {
-  return <div>CreateTask</div>;
+  return (
+    <>
+      <CreateTaskModal />
+      <Outlet />
+    </>
+  );
 }

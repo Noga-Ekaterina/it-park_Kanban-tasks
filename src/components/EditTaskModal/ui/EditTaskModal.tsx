@@ -1,6 +1,6 @@
 export function EditTaskModal() {
   return (
-    <div className="modal-overlay edit-task-modal hidden">
+    <div className="modal-overlay edit-task-modal">
       <div className="modal edit-task-modal-content">
         <div className="modal-header">
           <h2>Edit Task</h2>
