@@ -20,7 +20,7 @@ export function DeleteBoardModal() {
     try {
       const response = await deldata(
         `boards/${boardId}/delete`,
-        BoardResSchema
+        BoardResSchema,
       );
 
       if (response) {
