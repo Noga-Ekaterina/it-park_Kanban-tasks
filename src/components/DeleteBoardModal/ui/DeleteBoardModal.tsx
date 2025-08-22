@@ -1,5 +1,5 @@
 import iconCross from "@/assets/icon-cross.svg";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useActions } from "src/store/useActions";
 import { useBoardsState } from "src/store/slices/boardsSlice";
@@ -39,10 +39,8 @@ export function DeleteBoardModal() {
           <h2>
             Delete <i>{currentBoard?.name}</i> Board
           </h2>
-          <button className="close-modal">
-            <Link to={`/boards/${boardId}`}>
-              <img src={iconCross} alt="Close" />
-            </Link>
+          <button className="close-modal" onClick={() => navigate(-1)}>
+            <img src={iconCross} alt="Close" />
           </button>
         </div>
 
