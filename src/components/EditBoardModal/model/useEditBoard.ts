@@ -25,10 +25,10 @@ export const useEditBoard = () => {
         (value) => {
           // Разрешаем текущее название доски, но запрещаем дубликаты других досок
           return !boards.find(
-            (board) => board.name === value && board.id !== Number(boardId)
+            (board) => board.name === value && board.id !== Number(boardId),
           );
         },
-        { message: "Доска с таким названием уже существует" }
+        { message: "Доска с таким названием уже существует" },
       ),
     });
   }, [boards, boardId]);
@@ -53,7 +53,7 @@ export const useEditBoard = () => {
       const updatedBoard = await updata<BoardType, BoardResType>(
         `boards/${boardId}/edit`,
         { name: data.name },
-        BoardResSchema
+        BoardResSchema,
       );
 
       if (updatedBoard) {

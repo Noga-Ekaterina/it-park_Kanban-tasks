@@ -31,6 +31,14 @@ export const boardsSlice = createSlice({
       newArray[index].name = newName;
       state.boards = newArray;
     },
+    deleteBoard(state, action: PayloadAction<BoardResType["id"]>) {
+      const id = action.payload;
+      const newArray = state.boards;
+      const index = newArray.findIndex((el) => el.id === id);
+      if (index < 0) return;
+      newArray.splice(index, 1);
+      state.boards = newArray;
+    },
   },
 });
 
