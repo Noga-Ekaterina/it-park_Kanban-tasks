@@ -51,10 +51,7 @@ export function DeleteBoardModal() {
             className="buttons-group"
             style={{ display: "flex", gap: "15px", marginTop: "20px" }}
           >
-            <button
-              className="btn-secondary"
-              onClick={() => navigate(`/boards/${boardId}`)}
-            >
+            <button className="btn-secondary" onClick={() => navigate(-1)}>
               Cancel
             </button>
             <button
