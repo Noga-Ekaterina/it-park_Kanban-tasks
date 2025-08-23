@@ -11,17 +11,22 @@
     "prettier": "prettier --write ."
   },
   "dependencies": {
-    "@hookform/resolvers": "^5.0.1",
+    "@hookform/resolvers": "^5.2.1",
     "@reduxjs/toolkit": "^2.8.2",
     "axios": "^1.9.0",
     "react": "^19.1.0",
+    "react-content-loader": "^7.1.1",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.56.4",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.6.0",
+<<<<<<< HEAD
     "zod": "^3.25.56"
+=======
+    "zod": "^3.25.76"
+>>>>>>> 4220d4b56188caf9dc8325721c1900953afa88d4
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",

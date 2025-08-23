@@ -37,6 +37,15 @@ export const tasksSlice = createSlice({
 
       state.tasks[board][index].status = newStatus;
     },
+    deleteTask(
+      state,
+      { payload }: { payload: { boardId: string; id: TaskType["id"] } }
+    ) {
+      const { boardId, id } = payload;
+      const index = state.tasks[boardId]?.findIndex((task) => task.id === id);
+      if (index < 0) return;
+      state.tasks[boardId].splice(index, 1);
+    },
     editTask(
       state,
       {

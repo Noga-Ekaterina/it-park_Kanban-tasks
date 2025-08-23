@@ -38,7 +38,12 @@ export function TaskDetailsModal() {
               <button className="edit-task" onClick={() => navigate("edit")}>
                 Edit Task
               </button>
-              <button className="delete-task">Delete Task</button>
+              <button
+                className="delete-task"
+                onClick={() => navigate("delete")}
+              >
+                Delete Task
+              </button>
             </div>
           </div>
           <button className="close-modal" onClick={() => navigate(-1)}>
