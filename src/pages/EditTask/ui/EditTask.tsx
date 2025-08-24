@@ -1,3 +1,5 @@
+import { EditTaskModal } from "src/components/EditTaskModal";
+
 export function EditTask() {
-  return <div>EditTask</div>;
+  return <EditTaskModal />;
 }

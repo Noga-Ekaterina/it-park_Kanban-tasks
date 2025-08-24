@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTasksState } from "../../../store/slices/tasksSlice.ts";
 
-const statuses = ["TODO", "DOING", "DONE"];
+export const statuses: string[] = ["TODO", "DOING", "DONE"];
 
 export function TaskDetailsModal() {
   const [isOpenMenu, setIsOpenMenu] = useState(false);

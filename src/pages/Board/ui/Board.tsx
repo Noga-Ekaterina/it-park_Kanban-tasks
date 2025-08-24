@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import { Outlet, useLocation } from "react-router";
-import { useParams } from "react-router-dom";
-import { CreateBoard } from "src/pages/CreateBoard/index.ts";
+// import { Outlet, useLocation } from "react-router";
+import { Outlet, useParams } from "react-router-dom";
+// import { CreateBoard } from "src/pages/CreateBoard/index.ts";
 import { getData } from "../../../api";
 import { MainContent } from "../../../components/MainContent";
 import { useTasksState } from "../../../store/slices/tasksSlice.ts";
 import { useActions } from "../../../store/useActions.ts";
 import type { BoardTasksResType } from "../../../types/types.ts";
 import { BoardTasksResSchema } from "../../../types/zodShemas.ts";
+// import { CreateTask } from "src/pages/CreateTask/index.ts";
 
 export function Board() {
   const { boardId } = useParams();
@@ -15,8 +16,8 @@ export function Board() {
   const { addTasks } = useActions();
   const [isLoad, setIsLoad] = useState(false);
 
-  const location = useLocation();
-  const isCreateOpenModal = location.pathname.endsWith("/create");
+  // const location = useLocation();
+  // const isCreateOpenModal = location.pathname.endsWith("/create");
 
   useEffect(() => {
     if (!boardId || boardId in tasks) return;
@@ -25,7 +26,7 @@ export function Board() {
       console.log(`Target url is: boards/${boardId}`);
       const data = await getData<BoardTasksResType>(
         `boards/${boardId}`,
-        BoardTasksResSchema,
+        BoardTasksResSchema
       );
       if (data) {
         addTasks({ board: boardId, tasks: data.tasks });
@@ -38,7 +39,6 @@ export function Board() {
     <>
       <MainContent isLoad={isLoad} />
       <Outlet />
-      {isCreateOpenModal && <CreateBoard />}
     </>
   );
 }

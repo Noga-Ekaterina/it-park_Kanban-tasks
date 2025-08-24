@@ -14,6 +14,6 @@ export type BoardResType = z.infer<typeof BoardResSchema>;
 export type BoardsResType = z.infer<typeof BoardsResSchema>;
 export type TaskType = z.infer<typeof TaskSchema>;
 export type TaskUiType = z.infer<typeof TaskUiSchema>;
+export type TaskResType = z.infer<typeof TaskResSchema>;
 export type BoardTasksResType = z.infer<typeof BoardTasksResSchema>;
 export type TasksType = BoardTasksResType["tasks"];
-export type TaskResType = z.infer<typeof TaskResSchema>;
