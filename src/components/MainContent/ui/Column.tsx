@@ -4,7 +4,7 @@ import Task from "./Task.tsx";
 import { useDrop } from "react-dnd";
 import { DragDropItems } from "../../../ DragDropItems";
 import type { TaskType } from "../../../types/types.ts";
-import { useChangeStatus } from "../useChangeStatus.ts";
+import { useChangeStatus } from "../model/useChangeStatus.ts";
 
 interface Props {
   tasksStatus: number;

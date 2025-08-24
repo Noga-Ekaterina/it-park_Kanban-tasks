@@ -42,7 +42,7 @@ export function EditTaskModal() {
           description: data.description,
           status: data.status,
         },
-        TaskSchema
+        TaskSchema,
       );
       if (updateTask) {
         editTask({

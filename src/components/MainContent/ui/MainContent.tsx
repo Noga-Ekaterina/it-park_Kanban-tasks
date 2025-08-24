@@ -1,11 +1,10 @@
 import { Header } from "./Header";
 import Column from "./Column.tsx";
+import { useFetchingTasks } from "../model/useFetchingTasks.ts";
+import {Loader} from "../../Loader";
 
-interface IProps {
-  isLoad: boolean;
-}
-
-export function MainContent({ isLoad }: IProps) {
+export function MainContent() {
+  const { isLoad, errorMessage } = useFetchingTasks();
   return (
     <div className="main-content">
       <Header />
@@ -13,7 +12,18 @@ export function MainContent({ isLoad }: IProps) {
       {/* <!-- Kanban Board --> */}
 
       {isLoad ? (
-        <h2 style={{ marginTop: "40px", textAlign: "center" }}>Загрузка...</h2>
+        <div className="kanban-board">
+          <Loader />
+          <Loader />
+          <Loader />
+        </div>
+      ) : errorMessage ? (
+        <div
+          className="error"
+          style={{ marginTop: "40px", textAlign: "center" }}
+        >
+          {errorMessage}
+        </div>
       ) : (
         <div className="kanban-board">
           {/* <!-- Todo Column --> */}
