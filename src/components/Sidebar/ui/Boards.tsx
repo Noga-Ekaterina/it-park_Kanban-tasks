@@ -5,7 +5,7 @@ import {
 } from "../../../assets/icon-board.svg";
 import { useFetchingBoards } from "../model/useFetchingBoards";
 import { useBoardsState } from "../../../store/slices/boardsSlice.ts";
-import {Loader} from "../../Loader";
+import { Loader } from "../../Loader";
 
 export function Boards() {
   const { isLoading, errorMessage } = useFetchingBoards();

@@ -1,7 +1,7 @@
 import { Header } from "./Header";
 import Column from "./Column.tsx";
 import { useFetchingTasks } from "../model/useFetchingTasks.ts";
-import {Loader} from "../../Loader";
+import { Loader } from "../../Loader";
 
 export function MainContent() {
   const { isLoad, errorMessage } = useFetchingTasks();
