@@ -2,6 +2,7 @@ import { useNavigate } from "react-router";
 import { useParams } from "react-router-dom";
 import closeIcon from "@/assets/icon-cross.svg";
 import { useCreateTask } from "../model/useCreateTask.ts";
+import { statuses } from "../../../variables.ts";
 
 export function CreateTaskModal() {
   const navigate = useNavigate();
@@ -72,9 +73,11 @@ export function CreateTaskModal() {
               id="edit-task-status"
               {...register("status", { valueAsNumber: true })}
             >
-              <option value="0">Todo</option>
-              <option value="1">Doing</option>
-              <option value="2">Done</option>
+              {statuses.map((status, index) => (
+                <option key={status} value={index}>
+                  {status}
+                </option>
+              ))}
             </select>
           </div>
           {

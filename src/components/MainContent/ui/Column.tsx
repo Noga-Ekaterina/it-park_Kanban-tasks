@@ -2,17 +2,16 @@ import { useTasksState } from "../../../store/slices/tasksSlice.ts";
 import { useParams } from "react-router-dom";
 import Task from "./Task.tsx";
 import { useDrop } from "react-dnd";
-import { DragDropItems } from "../../../ DragDropItems";
+import { DragDropItems, statuses } from "../../../variables.ts";
 import type { TaskType } from "../../../types/types.ts";
 import { useChangeStatus } from "../model/useChangeStatus.ts";
 
 interface Props {
   tasksStatus: number;
-  title: string;
   background: string;
 }
 
-function Column({ tasksStatus, title, background }: Props) {
+function Column({ tasksStatus, background }: Props) {
   const { tasks } = useTasksState();
   const { boardId } = useParams();
   const thisTasks = boardId
@@ -38,7 +37,7 @@ function Column({ tasksStatus, title, background }: Props) {
       <div className="column-header">
         <span className="bullet" style={{ background }}></span>
         <h3>
-          {title} ({thisTasks?.length})
+          {statuses[tasksStatus]} ({thisTasks?.length})
         </h3>
       </div>
       <div className="tasks">

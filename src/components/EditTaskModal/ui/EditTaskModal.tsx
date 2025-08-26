@@ -1,6 +1,6 @@
 import close from "../../../assets/icon-cross.svg";
 import { useNavigate } from "react-router-dom";
-import { statuses } from "src/components/TaskDetailsModal/ui/TaskDetailsModal";
+import { statuses } from "src/variables.ts";
 import { useEditTask } from "../model/useEditTask.ts";
 
 export function EditTaskModal() {
