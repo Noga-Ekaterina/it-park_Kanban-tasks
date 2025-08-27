@@ -1,35 +1,16 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { deldata } from "src/api";
 import { useTasksState } from "src/store/slices/tasksSlice";
-import { useActions } from "src/store/useActions";
-import { TaskSchema } from "src/types/zodShemas";
+import { useDeleteTask } from "../model/useDeleteTask.ts";
 
 export function DeleteTaskModal() {
-  const { tasks } = useTasksState();
   const { boardId, taskId } = useParams();
+  const navigate = useNavigate();
+  const { tasks } = useTasksState();
   const task =
     boardId && taskId
       ? tasks[boardId]?.find(({ id }) => String(id) == taskId)
       : null;
-  console.log(tasks);
-  const navigate = useNavigate();
-  const { deleteTask } = useActions();
-
-  const onDelete = async () => {
-    if (!boardId) return;
-    try {
-      const resp = await deldata(
-        `boards/${boardId}/tasks/${taskId}/delete`,
-        TaskSchema,
-      );
-      if (resp) {
-        deleteTask({ boardId: String(boardId), id: Number(taskId) });
-      }
-      navigate(`/boards/${boardId}`);
-    } catch {
-      console.log("Failed to delete task");
-    }
-  };
+  const onDelete = useDeleteTask();
 
   return (
     <div className="modal-overlay delete-modal-task ">

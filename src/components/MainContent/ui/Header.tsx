@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import iconVerticalEllipsis from "@/assets/icon-vertical-ellipsis.svg";
 import { BoardOptionsPopup } from "src/components/BoardOptionsPopup";
 import { useNavigate } from "react-router-dom";
+import mobileLogo from "@/assets/logo-mobile.svg";
+import iconAddTask from "@/assets/icon-add-task-mobile.svg";
 
 export function Header() {
   const { boards } = useBoardsState();
@@ -16,9 +18,8 @@ export function Header() {
   return (
     <header>
       <div className="header-left">
-        <img className="mobile-logo" src="assets/logo-mobile.svg" alt="" />
+        <img className="mobile-logo" src={mobileLogo} alt="" />
         {activeBoard && <h1>{activeBoard.name}</h1>}
-        <img className="chevron" src="assets/icon-chevron-down.svg" alt="" />
       </div>
       <div className="header-right">
         <button
@@ -26,7 +27,7 @@ export function Header() {
           disabled={!activeBoard}
           onClick={() => navigate("tasks/create")}
         >
-          <img src="assets/icon-add-task-mobile.svg" alt="" />
+          <img src={iconAddTask} alt="" />
           <span>Add New Task</span>
         </button>
         <button

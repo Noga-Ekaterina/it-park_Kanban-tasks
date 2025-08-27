@@ -4,8 +4,8 @@ import {
   default as iconBoard,
 } from "../../../assets/icon-board.svg";
 import { useFetchingBoards } from "../model/useFetchingBoards";
-import { Loader } from "./Loader/ui/Loader";
 import { useBoardsState } from "../../../store/slices/boardsSlice.ts";
+import { Loader } from "../../Loader";
 
 export function Boards() {
   const { isLoading, errorMessage } = useFetchingBoards();

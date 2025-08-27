@@ -211,7 +211,7 @@ export async function logIn(
         error instanceof AxiosError &&
         (error.status === 400 || error.status === 401)
       ) {
-        console.log("SignUp failed");
+        console.log("SignUpForm failed");
       } else {
         console.error("Request failed:", error);
         alert("Ошибка на сервере, не получилось сохранить изменеия");

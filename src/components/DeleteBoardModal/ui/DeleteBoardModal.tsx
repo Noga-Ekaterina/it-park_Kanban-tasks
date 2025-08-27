@@ -1,36 +1,10 @@
 import iconCross from "@/assets/icon-cross.svg";
 import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import { useActions } from "src/store/useActions";
-import { useBoardsState } from "src/store/slices/boardsSlice";
-import { deldata } from "src/api";
-import { BoardResSchema } from "src/types/zodShemas";
+import { useDeleteBoard } from "../model/useDeleteBoard.ts";
 
 export function DeleteBoardModal() {
   const navigate = useNavigate();
-  const { boardId } = useParams<{ boardId: string }>();
-  const { boards } = useBoardsState();
-  const { deleteBoard } = useActions();
-
-  const currentBoard = boards.find((board) => board.id === Number(boardId));
-
-  const handleDelete = async () => {
-    if (!boardId || !currentBoard) return;
-
-    try {
-      const response = await deldata(
-        `boards/${boardId}/delete`,
-        BoardResSchema,
-      );
-
-      if (response) {
-        deleteBoard(Number(boardId));
-        navigate("/");
-      }
-    } catch (error) {
-      console.error("Failed to delete board:", error);
-    }
-  };
+  const { currentBoard, handleDelete } = useDeleteBoard();
 
   return (
     <div className="modal-overlay edit-board-modal">

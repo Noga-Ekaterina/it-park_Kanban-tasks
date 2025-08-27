@@ -3,8 +3,7 @@ import closeIcon from "@/assets/icon-cross.svg";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTasksState } from "../../../store/slices/tasksSlice.ts";
-
-export const statuses: string[] = ["TODO", "DOING", "DONE"];
+import { statuses } from "src/variables.ts";
 
 export function TaskDetailsModal() {
   const [isOpenMenu, setIsOpenMenu] = useState(false);

@@ -1,5 +1,5 @@
 import { useDrag } from "react-dnd";
-import { DragDropItems } from "../../../ DragDropItems";
+import { DragDropItems } from "../../../variables.ts";
 import type { TaskType } from "../../../types/types.ts";
 import { useNavigate } from "react-router-dom";
 

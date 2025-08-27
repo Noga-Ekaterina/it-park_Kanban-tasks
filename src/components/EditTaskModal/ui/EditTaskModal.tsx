@@ -1,63 +1,12 @@
-import { useTasksState } from "src/store/slices/tasksSlice";
 import close from "../../../assets/icon-cross.svg";
-import { useNavigate, useParams } from "react-router-dom";
-import { statuses } from "src/components/TaskDetailsModal/ui/TaskDetailsModal";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useActions } from "src/store/useActions";
-import { updata } from "src/api";
-import type { TaskType } from "src/types/types";
-import { TaskSchema } from "src/types/zodShemas";
+import { useNavigate } from "react-router-dom";
+import { statuses } from "src/variables.ts";
+import { useEditTask } from "../model/useEditTask.ts";
 
 export function EditTaskModal() {
-  const { tasks } = useTasksState();
-  const { boardId, taskId } = useParams();
-  const task =
-    boardId && taskId
-      ? tasks[boardId]?.find(({ id }) => String(id) == taskId)
-      : null;
-
   const navigate = useNavigate();
-  const { editTask } = useActions();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<TaskType>({
-    resolver: zodResolver(TaskSchema),
-    defaultValues: {
-      id: Number(taskId),
-      title: task?.title || "",
-      description: task?.description || "",
-      status: task?.status || 0,
-    },
-  });
-  const onSubmit = async (data: TaskType) => {
-    if (!boardId) return;
-    try {
-      const updateTask = await updata(
-        `boards/${boardId}/tasks/${taskId}/edit`,
-        {
-          title: data.title,
-          description: data.description,
-          status: data.status,
-        },
-        TaskSchema
-      );
-      if (updateTask) {
-        editTask({
-          boardId: boardId,
-          id: Number(taskId),
-          newTitle: data.title,
-          newDescription: data.description,
-          newStatus: data.status,
-        });
-        navigate(-1); // Возвращение назад после сохранения }
-      }
-    } catch (error) {
-      console.log("FAiled to update task", error);
-    }
-  };
+  const { register, handleSubmit, errors, onSubmit } = useEditTask();
+
   return (
     <div className="modal-overlay edit-task-modal">
       <div className="modal edit-task-modal-content">

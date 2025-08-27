@@ -1,7 +1,7 @@
-import type { TaskType } from "../../types/types.ts";
-import { useActions } from "../../store/useActions.ts";
-import { updata } from "../../api";
-import { TaskResSchema } from "../../types/zodShemas.ts";
+import type { TaskType } from "../../../types/types.ts";
+import { useActions } from "../../../store/useActions.ts";
+import { updata } from "../../../api";
+import { TaskResSchema } from "../../../types/zodShemas.ts";
 
 export function useChangeStatus() {
   const { changeTaskStatus } = useActions();
