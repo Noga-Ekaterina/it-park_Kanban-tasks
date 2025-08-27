@@ -383,6 +383,7 @@ h1 {
   border-radius: 4px;
   font-size: 13px;
   color: var(--text-color);
+  background: var(--background-navbar-task-color);
 }
 
 .form-group textarea {
